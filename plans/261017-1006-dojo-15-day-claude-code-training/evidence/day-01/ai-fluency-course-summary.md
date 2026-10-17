@@ -5,7 +5,7 @@ Presenters: Prof. Rick Dakan (Ringling College of Art and Design), Prof. Joe Fel
 Format: 14 lessons, ~4 hours, final quiz (10 questions, ~8 min, **pass ≥ 80%**), completion badge with a shareable, verifiable link.
 Framework copy: ringling.libguides.com/ai/framework
 
-> Sources: the full video transcripts of all 11 video lessons (L1–L6, L8–L10, L12, L13), plus the text of L7, L11, L14 and Additional activities (no video). Read 2026-10-17. This is a study aid. It doesn't replace taking the course, and the badge needs the quiz passed in Academy.
+> Sources: the full video transcripts of all 11 video lessons (L1–L6, L8–L10, L12, L13), plus the full source text of L7, L11, L14 and Additional activities (no video). All are taken from the lesson content modules that the Academy pages load. Read 2026-10-17. This is a study aid. It doesn't replace taking the course, and the badge needs the quiz passed in Academy.
 
 ---
 
@@ -124,10 +124,20 @@ Framing: treat it like getting to know a new colleague's strengths and weaknesse
 - Exercise prompt: *"Hi Claude, I'm preparing how to [task] and want to discuss with you what a delegation plan may look like for figuring out which parts I should delegate to an AI like you vs. not."* Work through the vision, what good looks like, the pieces of work, and which pieces need human judgment. Then write the delegation plan.
 
 ### L7 · Project planning and Delegation (text lesson)
-- Choose a **course project** that is substantial (several task types), doable in about 1 hour and that you care about. Types: communication, research, creative, learning.
-- Step 2: tell Claude the idea and let it **ask you questions** until the vision and the success criteria are clear.
-- Step 3: break the project into major tasks. For each one, decide which skills or AI capabilities it needs, which human strengths it uses, where AI helps, and where collaboration has the most impact. Challenge assumptions as you go.
-- **Save the plan.** You reuse it for Description, Discernment and Diligence.
+- **Step 1, choose a course project.** It should be medium-sized and multi-step: substantial enough to involve several task types, manageable in about 1 hour of work, and something you genuinely want to do. Suggestions:
+  - **Communication:** a presentation on a topic you know; a post or series explaining a complex topic; a proposal or pitch; a bio with supporting materials.
+  - **Research:** the state of an emerging technology; analyse a dataset and make recommendations; compare products or approaches; investigate a historical event.
+  - **Creative:** a short-story outline with developed characters; a simple website structure with content; a product, service or experience concept.
+  - **Learning:** a learning plan for a skill; a resource collection; a tutorial for a process you know well; study materials.
+- **Step 2, vision and goals.** Share the idea with Claude and **invite it to ask you questions** until you have a solid vision: what success looks like, and what would make the project valuable or meaningful to you.
+- **Step 3, task breakdown and delegation analysis.** Identify the major tasks together. For each task, one at a time, discuss:
+  - what skills, knowledge or AI capabilities it needs;
+  - which parts benefit from uniquely human strengths;
+  - which parts could use AI well;
+  - where collaboration would have the most impact.
+  - Have "a genuine conversation… rather than just exchanging statements": challenge assumptions, ask for clarification, stay open to unexpected insights.
+- Write a project plan with the major tasks and delegation decisions, and **save it**. You reuse it for Description, Discernment and Diligence.
+- Reflect: what insights came from the planning conversation? What will be hardest about the delegation plan? What extra information or skills would help you delegate better?
 
 ### L8 · A closer look at Description (15 min, video 4 min)
 - Description is "the core of most human–AI interaction". It is more than clever prompts:
@@ -199,13 +209,18 @@ Framing: treat it like getting to know a new colleague's strengths and weaknesse
 - Exercise **"Expert Discernment"**: on a topic you know well, ask for 3 explanations. Judge each on product, process and performance, pick the best and worst, then build an improved version with Claude. Reflect on how much domain knowledge discernment needs.
 
 ### L11 · The Description–Discernment loop (text, 10 min)
-- Apply both skills to the course project, looping for **each task**:
-  1. **Describe**: the product, process and performance you want.
-  2. **Discern**: judge the output, the approach and the behaviour.
-  3. **Refine**: give feedback, adjust the description, ask for another version.
-  4. **Integrate**: add your own expertise, decide what to keep, change or drop, and **own the final output**.
-- Goal: results better than either human or AI could produce alone.
-- Reflect: which descriptions worked best? Which took more effort, describing or discerning?
+- **Step 1, review your project plan** from L7: check the delegation decisions and refine them using what you've learned since.
+- **Step 2, prepare your description approach.** Before executing, agree expectations with Claude:
+  - **Product:** what outputs per task, and their format, style, length and level of detail.
+  - **Process:** the methods, frameworks or steps Claude should follow.
+  - **Performance:** the collaborative behaviour you want: concise or detailed, challenging or supportive, focused on ideas or on analysis.
+- **Step 3, execute with the loop**, for **each task**:
+  1. **Describe**: what you want (Product), how to approach it (Process), and how to engage with you (Performance).
+  2. **Discern**: evaluate the output (Product), how Claude approached it (Process), and whether its behaviour is helping (Performance).
+  3. **Refine**: say what worked and what didn't, clarify the description, and iterate until you're satisfied.
+  4. **Integrate**: add your own perspective, creativity and domain knowledge; make the final decisions on what to keep, modify or discard; **take responsibility for the final output**.
+- Repeat the loop for each task until the project is done. The aim is a result better than either human or AI could produce alone.
+- Reflect: which kinds of description gave the best outcomes? Which took more effort, Description or Discernment, and why? How did the execution compare with the L7 plan, and what did you adjust?
 
 ### L12 · A closer look at Diligence (20 min)
 - Diligence covers **ethics and safety**, "just as crucial" as effectiveness. It means taking responsibility so your AI use is **rigorous, transparent and accountable**.
@@ -246,9 +261,19 @@ Framing: treat it like getting to know a new colleague's strengths and weaknesse
 - 10 questions, ~8 min, **≥80% to pass**. Topics: what AI Fluency means, the 4Ds and the parts of each. After passing, choose **"Create your completion badge"**.
 
 ### Additional activities (optional)
-1. **Personal AI Fluency Plan**: rate yourself on each D (novice, developing or confident), pick 1–2 to focus on, and plan activities, a timeline and how you'll measure progress.
-2. **Prompt & Pattern Library**: 5–10 recurring tasks, each with a template prompt and placeholders. Record the Description techniques and Discernment checks that work.
-3. **Game Night**: word puzzles have precise rules, which makes them good Description practice, and they are deliberately tricky, which makes them good Discernment practice. Options: riddles, cooperative crosswords, word association, Twenty Questions, collaborative storytelling, RPG, concepts and constraints, and Project Euler.
+1. **Personal AI Fluency Plan**, made with Claude as a thinking partner:
+   - **Assess:** rate each D (novice, developing or confident), note strengths and gaps within each, and note which modes (Automation, Augmentation, Agency) you use most and least effectively.
+   - **Prioritise:** pick 1–2 competencies, the aspects that matter most in your context, and the modes you want to get better at.
+   - **Plan:** activities for each priority, a timeline and practice frequency, resources, and how you'll recognise progress.
+2. **Prompt & Pattern Library**:
+   - 5–10 tasks you regularly do with AI, each with a template prompt that reliably gives good results, plus placeholders for the parts that change.
+   - Record the Description techniques that work for each task type, the Discernment patterns that help you evaluate, and which approaches suit each mode.
+   - Keep it searchable, include examples of good outputs, and keep it updated. Claude can help you mine past successful conversations for patterns.
+3. **Game Night**: puzzles have precise rules, which makes them good **Description** practice, and they are deliberately tricky, which makes them good **Discernment** practice.
+   - **Swap riddles:** have Claude guess *and explain its reasoning*. Don't give it the answer; nudge it toward the right chain of thought, then swap roles.
+   - **Cooperative crosswords** (cryptic clues work well): the point is learning to steer thinking ("only 5 letters", "can't be, it starts with B", "maybe 'swallow' the bird, not the drink").
+   - **Word association:** with 12–20 random words, find relationships together. Point out questionable connections, stay open to ones Claude spots, and practise all three discernments: do the answers make sense (product)? Does it consider several possibilities or fixate on one (process)? Is it clear, does it ask good questions, does it build on your ideas (performance)?
+   - **More:** Twenty Questions, collaborative storytelling, "A Wizard Approaches You in the Tavern" (an RPG with Claude as player or game master), Concepts & Constraints (e.g. "explain using cooking metaphors only"), and advanced puzzling (write puzzles for each other; programmers can try Project Euler).
 
 ---
 

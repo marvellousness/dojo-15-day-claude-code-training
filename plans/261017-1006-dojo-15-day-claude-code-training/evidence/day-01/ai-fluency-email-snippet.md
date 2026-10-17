@@ -9,5 +9,6 @@ Key learnings:
 - **Discernment:** check the output (accuracy, relevance), the reasoning (logic gaps) and the behaviour, then loop: Describe, Discern, Refine, Integrate.
 - **Diligence:** choose tools responsibly, be open about AI's role, and verify and own everything I share.
 - Three modes of use: Automation (AI does a task), Augmentation (we think together), Agency (AI acts on my behalf).
+- Limits to plan around: knowledge cutoff, confident hallucinations, a finite context window, and different answers to the same question.
 
-Takeaway for my work: treat Claude's output as a draft to verify by running it; say how it was tested in each MR; never paste secrets or client data.
+Takeaway for my work: AI is "not a database or vending machine". Treat Claude's output as a draft to verify by running it, say how it was tested in each MR, and never paste secrets or client data.

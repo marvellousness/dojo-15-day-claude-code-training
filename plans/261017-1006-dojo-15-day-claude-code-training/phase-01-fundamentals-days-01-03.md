@@ -17,7 +17,7 @@ Courses: AI Fluency: Framework and foundations · AI capabilities and limitation
 - [ ] 1.2 Course: AI Fluency (4D: Delegation, Description, Discernment, Diligence)
 - [ ] 1.3 Course: AI capabilities and limitations
 - [ ] 1.4 Course: start Claude 101 (first conversation, prompting, projects/artifacts)
-- [ ] 1.5 Git block: clone, branch, commit, push (practice branch + MR in this repo)
+- [x] 1.5 Git block (local): branch, commit, `--no-ff` merge, delete branch. Push deferred until GitLab reachable
 - [ ] 1.6 Exercise: in Claude chat, get a useful answer to 3 real work questions: one bug summary, one "explain this concept", one drafting task
 - [ ] 1.7 Note which prompt changes improved each answer; note where output surprised you (good and bad)
 

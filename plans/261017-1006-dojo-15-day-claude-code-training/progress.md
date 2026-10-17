@@ -1,13 +1,13 @@
 # Training Progress — source of truth
 
-Last updated: 2026-10-17 · Overall: **0 / 15 days done (0%)** · Tasks: **0 / 98**
+Last updated: 2026-10-17 · Overall: **0 / 15 days done (0%)** · Tasks: **1 / 98**
 
 Status values: `todo` · `in-progress` · `done` · `blocked`
 
 ## Days
 | Day | Date | Topic | Status | Tasks | Courses | Report | Evidence | Notes |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 2026-10-17 Sat | Mental model + Claude basics | in-progress | 0/7 | AI Fluency, Capabilities & limits, Claude 101 (start) | — | — | |
+| 1 | 2026-10-17 Sat | Mental model + Claude basics | in-progress | 1/7 | AI Fluency, Capabilities & limits, Claude 101 (start) | — | evidence/day-01/prompt-notes.md | local git only |
 | 2 | 2026-10-18 Sun | Ticket analysis, reproduce | todo | 0/8 | Claude 101 (finish) | — | — | app scaffold here |
 | 3 | 2026-10-19 Mon | Fix, review, merge (CP1) | todo | 0/9 | — | — | — | |
 | 4 | 2026-10-20 Tue | Install & daily loop | todo | 0/8 | Claude Code 101, CC in action | — | — | |

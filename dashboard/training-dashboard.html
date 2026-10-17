@@ -1,0 +1,301 @@
+<style>
+  .tt { font-family: var(--font-anthropic-sans); display: grid; gap: var(--cds-gap-lg); font-variant-numeric: tabular-nums; }
+  .tt-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .tt-head p { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); }
+  .tt-kpis { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); }
+  .tt-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+  .tt-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .tt-card .tt-note { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin: var(--cds-gap-xs) 0 var(--cds-gap-md); }
+  .tt-kpi-label { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .tt-kpi-value { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin-top: var(--cds-gap-xs); }
+  .tt-kpi-sub { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin-top: var(--cds-gap-xs); }
+  .tt-strip { display: grid; gap: var(--cds-gap-sm); grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); min-height: 6rem; }
+  .tt-day { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-sm); display: grid; gap: var(--cds-gap-xs); background: var(--color-bg); }
+  .tt-day[data-status="in-progress"] { border-color: var(--color-warn); }
+  .tt-day[data-status="done"] { border-color: var(--color-ok); }
+  .tt-day[data-status="blocked"] { border-color: var(--color-bad); }
+  .tt-day-top { display: flex; justify-content: space-between; gap: var(--cds-gap-xs); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .tt-day-num { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .tt-day-topic { font-size: var(--cds-font-size-caption); line-height: 1.3; min-height: 2.6em; }
+  .tt-bar { height: 6px; border-radius: 3px; background: var(--cds-chart-grid); overflow: hidden; }
+  .tt-bar > span { display: block; height: 100%; border-radius: 3px; }
+  .tt-cp { font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); }
+  .tt-pill { display: inline-block; font-size: var(--cds-font-size-caption); padding: 0 var(--cds-pad-xs); border-radius: 999px; border: 1px solid currentColor; }
+  .tt-pill[data-status="done"] { color: var(--color-ok); }
+  .tt-pill[data-status="in-progress"] { color: var(--color-warn); }
+  .tt-pill[data-status="blocked"] { color: var(--color-bad); }
+  .tt-pill[data-status="todo"] { color: var(--color-fg-muted); }
+  .tt-grid2 { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+  .tt-scroll { overflow-x: auto; }
+  .tt table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); }
+  .tt th, .tt td { text-align: left; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .tt th { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
+  .tt td.num, .tt th.num { text-align: right; }
+  .tt-failed { display: flex; align-items: center; justify-content: center; gap: var(--cds-gap-xs); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); min-height: 6rem; }
+  .tt-failed::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+  [data-dash-source-state=empty] { color: transparent; }
+  [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  @media (max-width: 40rem) { .tt-hide-narrow { display: none; } }
+</style>
+
+<div class="tt">
+  <header class="tt-head" id="overview">
+    <h1>Dojo Training Tracker</h1>
+    <p id="tt-takeaway" class="dash-skeleton">—</p>
+  </header>
+
+  <section class="tt-kpis" aria-label="Headline figures">
+    <div class="tt-card">
+      <div class="tt-kpi-label">Days done</div>
+      <div class="tt-kpi-value"><span data-source="summary" data-field="days_done" class="dash-skeleton">—</span> / 15</div>
+      <div class="tt-kpi-sub">Developer track, 2026-10-17 to 2026-10-31</div>
+    </div>
+    <div class="tt-card">
+      <div class="tt-kpi-label">Tasks done</div>
+      <div class="tt-kpi-value"><span data-source="summary" data-field="tasks_done" class="dash-skeleton">—</span> / <span data-source="summary" data-field="tasks_total" class="dash-skeleton">—</span></div>
+      <div class="tt-kpi-sub"><span data-source="summary" data-field="tasks_pct" class="dash-skeleton">—</span> of all checklist items</div>
+    </div>
+    <div class="tt-card">
+      <div class="tt-kpi-label">Current day</div>
+      <div class="tt-kpi-value">Day <span data-source="summary" data-field="current_day" class="dash-skeleton">—</span></div>
+      <div class="tt-kpi-sub" data-source="summary" data-field="current_topic">—</div>
+    </div>
+    <div class="tt-card">
+      <div class="tt-kpi-label">Checkpoints passed</div>
+      <div class="tt-kpi-value"><span data-source="cp_summary" data-field="passed" class="dash-skeleton">—</span> / 4</div>
+      <div class="tt-kpi-sub">Next: <span data-source="cp_summary" data-field="next_label">—</span></div>
+    </div>
+  </section>
+
+  <section class="tt-card" id="calendar">
+    <h2>15-day calendar</h2>
+    <p class="tt-note">Each tile is one day. The bar shows checklist items done that day. Checkpoint days are labelled.</p>
+    <div class="tt-strip dash-skeleton" id="tt-strip" data-source="days"></div>
+  </section>
+
+  <div class="tt-grid2">
+    <section class="tt-card" id="checkpoints">
+      <h2>Checkpoints</h2>
+      <p class="tt-note">Pass/fail gates. A failed gate is redone within the next 2 days.</p>
+      <div class="tt-scroll">
+        <table id="tt-cp-table" data-source="checkpoints" data-row-key="checkpoint">
+          <thead><tr>
+            <th data-field="checkpoint">Gate</th>
+            <th data-field="day" class="num">Day</th>
+            <th data-field="status">Status</th>
+            <th data-field="items_done" class="num">Items done</th>
+            <th data-field="items_total" class="num">Items</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="tt-card" id="phases">
+      <h2>Phases</h2>
+      <p class="tt-note">Checklist items done per phase.</p>
+      <div class="tt-scroll">
+        <table id="tt-phase-table" data-source="phase_rollup" data-row-key="phase">
+          <thead><tr>
+            <th data-field="phase">Phase</th>
+            <th data-field="days" class="num">Days</th>
+            <th data-field="tasks_done" class="num">Done</th>
+            <th data-field="tasks_total" class="num">Items</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <section class="tt-card" id="days">
+    <h2>Day by day</h2>
+    <p class="tt-note">Mirrors progress.md in the training repo. Daily status reports live in the plan's reports folder.</p>
+    <div class="tt-scroll">
+      <table id="tt-day-table" data-source="days" data-row-key="day">
+        <thead><tr>
+          <th data-field="day" class="num">Day</th>
+          <th data-field="date">Date</th>
+          <th data-field="topic">Topic</th>
+          <th data-field="status">Status</th>
+          <th data-field="tasks_done" class="num">Done</th>
+          <th data-field="tasks_total" class="num">Items</th>
+          <th data-field="checkpoint" class="tt-hide-narrow">Gate</th>
+          <th data-field="courses" class="tt-hide-narrow">Courses</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+  dash.calc('summary', {
+    title: 'Overall training progress',
+    description: 'Days marked done, checklist items done, and the first day not yet done.',
+    inputs: ['days'],
+    fn: (days) => {
+      const tasksDone = days.reduce((s, d) => s + Number(d.tasks_done), 0);
+      const tasksTotal = days.reduce((s, d) => s + Number(d.tasks_total), 0);
+      const current = days.find((d) => d.status !== 'done') || days[days.length - 1];
+      return [{
+        days_done: days.filter((d) => d.status === 'done').length,
+        tasks_done: tasksDone,
+        tasks_total: tasksTotal,
+        tasks_pct: tasksTotal ? tasksDone / tasksTotal : 0,
+        current_day: Number(current.day),
+        current_topic: current.topic,
+        current_status: current.status,
+      }];
+    },
+  });
+
+  dash.calc('cp_summary', {
+    title: 'Checkpoint gates passed',
+    description: 'Gates marked done, and the first gate not yet done.',
+    inputs: ['checkpoints'],
+    fn: (checkpoints) => {
+      const next = checkpoints.find((c) => c.status !== 'done');
+      return [{
+        passed: checkpoints.filter((c) => c.status === 'done').length,
+        next_label: next ? next.checkpoint + ' on Day ' + next.day : 'All passed',
+      }];
+    },
+  });
+
+  dash.calc('phase_rollup', {
+    title: 'Progress by phase',
+    description: 'Checklist items done and total, summed per phase.',
+    inputs: ['days'],
+    fn: (days) => {
+      const out = [];
+      days.forEach((d) => {
+        let row = out.find((r) => r.phase === d.phase);
+        if (!row) { row = { phase: d.phase, days: 0, tasks_done: 0, tasks_total: 0 }; out.push(row); }
+        row.days += 1;
+        row.tasks_done += Number(d.tasks_done);
+        row.tasks_total += Number(d.tasks_total);
+      });
+      return out;
+    },
+  });
+
+  (function () {
+    const pct = d3.format('.0%');
+    const statusColor = { done: 'var(--color-ok)', 'in-progress': 'var(--color-warn)', blocked: 'var(--color-bad)', todo: 'var(--cds-chart-muted)' };
+
+    function failed(el) {
+      el.classList.remove('dash-skeleton');
+      el.textContent = '';
+      const f = document.createElement('div');
+      f.className = 'tt-failed';
+      f.textContent = 'Failed to load';
+      el.appendChild(f);
+    }
+
+    function pill(td, status) {
+      const s = document.createElement('span');
+      s.className = 'tt-pill';
+      s.dataset.status = status;
+      s.textContent = status;
+      td.appendChild(s);
+    }
+
+    function fillTable(id, rows, cols) {
+      const tbody = document.querySelector('#' + id + ' tbody');
+      tbody.textContent = '';
+      rows.forEach((r) => {
+        const tr = document.createElement('tr');
+        cols.forEach((c) => {
+          const td = document.createElement('td');
+          if (c.num) td.className = 'num';
+          if (c.hideNarrow) td.classList.add('tt-hide-narrow');
+          if (c.key === 'status') pill(td, r.status);
+          else td.textContent = r[c.key] == null ? '' : String(r[c.key]);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    dash.onData(() => {
+      const days = dash.data('days');
+      const cps = dash.data('checkpoints');
+      const sum = dash.data('summary');
+      const cpSum = dash.data('cp_summary');
+      const phases = dash.data('phase_rollup');
+
+      // Headline figures
+      document.querySelectorAll('[data-source="summary"], [data-source="cp_summary"]').forEach((el) => {
+        const src = dash.data(el.dataset.source);
+        if (src.status !== 'ok' || !src.data.length) { el.textContent = '—'; return; }
+        el.classList.remove('dash-skeleton');
+        const v = src.data[0][el.dataset.field];
+        el.textContent = el.dataset.field === 'tasks_pct' ? pct(v) : String(v);
+      });
+
+      const take = document.getElementById('tt-takeaway');
+      if (sum.status === 'ok' && cpSum.status === 'ok' && sum.data.length) {
+        const s = sum.data[0];
+        take.classList.remove('dash-skeleton');
+        take.textContent = 'Day ' + s.current_day + ' (' + s.current_topic + ') is ' + s.current_status + '. ' +
+          pct(s.tasks_pct) + ' of checklist items are done. Next gate: ' + cpSum.data[0].next_label + '.';
+      } else {
+        take.textContent = '—';
+      }
+
+      // Calendar strip
+      const strip = document.getElementById('tt-strip');
+      if (days.status === 'error') failed(strip);
+      else if (days.status === 'ok') {
+        strip.classList.remove('dash-skeleton');
+        strip.textContent = '';
+        days.data.forEach((d) => {
+          const done = Number(d.tasks_done), total = Number(d.tasks_total);
+          const tile = document.createElement('div');
+          tile.className = 'tt-day';
+          tile.dataset.status = d.status;
+          const top = document.createElement('div');
+          top.className = 'tt-day-top';
+          const num = document.createElement('span');
+          num.className = 'tt-day-num';
+          num.textContent = 'Day ' + d.day;
+          const date = document.createElement('span');
+          date.textContent = d3.utcFormat('%b %-d')(new Date(d.date)) + ' ' + d.weekday;
+          top.append(num, date);
+          const topic = document.createElement('div');
+          topic.className = 'tt-day-topic';
+          topic.textContent = d.topic;
+          const bar = document.createElement('div');
+          bar.className = 'tt-bar';
+          bar.setAttribute('aria-label', done + ' of ' + total + ' items done');
+          const fill = document.createElement('span');
+          fill.style.width = (total ? (done / total) * 100 : 0) + '%';
+          fill.style.background = statusColor[d.status] || statusColor.todo;
+          bar.appendChild(fill);
+          const foot = document.createElement('div');
+          foot.className = 'tt-day-top';
+          const count = document.createElement('span');
+          count.textContent = done + '/' + total;
+          const cp = document.createElement('span');
+          cp.className = 'tt-cp';
+          cp.textContent = d.checkpoint;
+          foot.append(count, cp);
+          tile.append(top, topic, bar, foot);
+          strip.appendChild(tile);
+        });
+      }
+
+      // Tables
+      if (cps.status === 'ok') fillTable('tt-cp-table', cps.data, [
+        { key: 'checkpoint' }, { key: 'day', num: true }, { key: 'status' }, { key: 'items_done', num: true }, { key: 'items_total', num: true },
+      ]);
+      if (phases.status === 'ok') fillTable('tt-phase-table', phases.data, [
+        { key: 'phase' }, { key: 'days', num: true }, { key: 'tasks_done', num: true }, { key: 'tasks_total', num: true },
+      ]);
+      if (days.status === 'ok') fillTable('tt-day-table', days.data, [
+        { key: 'day', num: true }, { key: 'date' }, { key: 'topic' }, { key: 'status' }, { key: 'tasks_done', num: true },
+        { key: 'tasks_total', num: true }, { key: 'checkpoint', hideNarrow: true }, { key: 'courses', hideNarrow: true },
+      ]);
+    });
+  })();
+</script>

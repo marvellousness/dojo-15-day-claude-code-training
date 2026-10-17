@@ -1,0 +1,30 @@
+[
+  {
+    "checkpoint": "CP1",
+    "day": 3,
+    "status": "todo",
+    "items_done": 0,
+    "items_total": 4
+  },
+  {
+    "checkpoint": "CP2",
+    "day": 6,
+    "status": "todo",
+    "items_done": 0,
+    "items_total": 5
+  },
+  {
+    "checkpoint": "CP3",
+    "day": 11,
+    "status": "todo",
+    "items_done": 0,
+    "items_total": 4
+  },
+  {
+    "checkpoint": "Final",
+    "day": 15,
+    "status": "todo",
+    "items_done": 0,
+    "items_total": 2
+  }
+]

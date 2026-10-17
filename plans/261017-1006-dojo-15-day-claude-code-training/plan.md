@@ -45,6 +45,7 @@ A failed checkpoint is redone as homework within the next 2 days; there is no sl
 ## Solo-mode adaptations (user-confirmed)
 - **No lead / peer:** Claude seeds tickets, bugs and conflicts on a side branch (user does not peek). Peer review = Claude subagent review of user's MR, plus user's own review of a Claude-authored MR (≥3 actionable comments each). Capstone "client" brief is written deliberately vague by Claude; user plays BA, QA and Dev in turn.
 - **GitLab, not GitHub:** MRs replace PRs. GitLab MCP / `glab` replaces the GitHub connector. `.gitlab-ci.yml` replaces GitHub Actions. `@claude` review replaced by a GitLab CI job running `claude -p` (skip with a note if no API key is available in CI).
+- **Local git first (user decision 2026-10-17):** GitLab unreachable from this machine, so all work runs on local git. An "MR" = feature branch + description file `mr/<branch>.md` (what / why / how tested) + review via `git diff main...<branch>` + `git merge --no-ff` + branch delete. Push branches and open real GitLab MRs later once GitLab is reachable. CI tasks run locally (`npm test`, Playwright) until then.
 - **Training app:** small Node + TypeScript app scaffolded Day 2 morning: Express API + minimal static web UI (notes/todo), Vitest unit tests, Playwright e2e, GitLab CI running tests.
 
 ## Tracking & reporting

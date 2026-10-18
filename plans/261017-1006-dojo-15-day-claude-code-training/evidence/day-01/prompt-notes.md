@@ -357,7 +357,7 @@ On slow networks, `getToken()` ran the token refresh inside `runBlocking` on the
 AI-assisted: drafted with Claude, reviewed and verified by me.
 ````
 - Reference checks: "How tested" contains only the 2 given facts (the test names come from the diff); untested items moved to Risks; the breaking change names all 3 callers; the isPaying guard is in How and in QA step 3; ~230 words; title format and AI line present.
-- Answer quality, v2 rerun in claude.ai (1–5) + why: _pending, run it for real to compare with the reference_
+- Answer quality, v2 rerun in claude.ai: **skipped** (decision 2026-10-18). Q3 stands on v1 (3/5) and the first v2 (4/5); the reference answer above is kept as the target for future MR descriptions.
 
 **Learnings (Q3):**
 - I left a template placeholder unfilled myself ("<paste the 3 facts above>"); this happened in Q1 v2 too. Before sending, scan the prompt for `<...>`.

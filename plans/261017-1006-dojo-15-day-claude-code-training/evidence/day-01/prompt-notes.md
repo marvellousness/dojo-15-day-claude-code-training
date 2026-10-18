@@ -180,10 +180,34 @@ that you're not sure exist.
 #### Record
 - Concept: ANR (Application Not Responding) in Android, explained to a new team member
 - Prompt v1 (planned): "What is ANR in Android?"
-- Prompt v1 (as actually sent):
-- Answer quality (1–5) + why:
-- Prompt v2 (what changed: audience level? example? analogy? length?):
-- Answer quality (1–5) + why:
+- Prompt v1 (as actually sent): "Explain this concept: ARN in Android" (typo kept; sent in the **same chat as Q1**, so it had the checkout bug in context)
+- Answer quality (1–5) + why: **3/5.** Accurate and well grounded: it corrected "ARN" to ANR, said there's no "ARN" concept, gave the 5 s input timeout, about 10 s for foreground broadcasts, services and `startForeground`, the main causes, how to read the trace and the fix principle, and tied it all to our checkout bug. Nothing invented. But for a beginner it's a wall of prose with no code, no table and no analogy. "/data/anr/ on debuggable devices" is loose (you need an emulator, root or `adb bugreport`). It isn't a clean baseline either, because it reused the Q1 context.
+- Prompt v2 (what changed): new chat; template with audience (new team member, knows Kotlin), goal (recognise traces, catch causes in review), "think first", a 6-part format with a 300-word cap, an analogy, a timeout table, bad → good Kotlin, a mentor tone, and guards ("mark version-specific", "say if unsure", "don't name APIs you're unsure of").
+- Answer quality (1–5) + why: **4/5.** Teachable and well calibrated:
+  - the cashier analogy;
+  - a timeout table limited to values it was confident of (5 s, 10 s / 60 s broadcasts, 20 s service), marked "AOSP defaults, approximate";
+  - three solid bad → good snippets;
+  - an accurate trace location (`/data/anr/` on an emulator or a rooted device; logcat `ANR in`);
+  - a strong beginner trap: `viewModelScope.launch` runs on **Main** by default.
+  - Points lost: the lock example has no "good" code (format miss); "foreground service lifecycle callback 20 s" is mislabelled, since the 20 s applies to service callbacks running in a foreground-priority process, with 200 s in the background, not to foreground services as such; it left out the background service, `startForegroundService` and JobService (acceptable under "only if confident").
+
+**Answer-key check (against Claude's claims; still confirm on developer.android.com):**
+| Claim | v1 | v2 |
+|---|---|---|
+| Input 5 s | yes | yes |
+| Broadcast 10 s fg / 60 s bg | 10 s, "longer" bg | yes, marked approximate |
+| Service 20 s / 200 s | "in time" (no number) | 20 s only, mislabelled |
+| `startForegroundService` → `startForeground` | mentioned | omitted |
+| JobService (14+) | omitted | omitted |
+| Play Console thresholds | omitted | omitted |
+| Tools (vitals, bugreport, /data/anr, StrictMode) | yes (loose on /data/anr) | yes |
+| Red flags (fake API, "raise timeout", ANR = crash) | none | none |
+
+**Learnings (Q2):**
+- Audience + goal + format turned a correct essay into something teachable; the "bad → good" request gave the biggest jump in usefulness.
+- The "mark version-specific / say if unsure" guard worked: v2 dropped facts rather than guessing, and flagged its numbers as approximate (calibration, not fabrication).
+- Context carries over: v1 in the Q1 chat personalised the answer (a plus) but spoiled the baseline. Use a fresh chat for v1 next time.
+- Even calibrated answers mislabel details (the "foreground service 20 s"). Check specifics against the docs.
 
 ### Q3 — Drafting task
 - What drafted (email, ticket, PR description, ...):

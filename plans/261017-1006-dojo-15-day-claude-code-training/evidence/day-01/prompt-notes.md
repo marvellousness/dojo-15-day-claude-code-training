@@ -210,8 +210,100 @@ that you're not sure exist.
 - Even calibrated answers mislabel details (the "foreground service 20 s"). Check specifics against the docs.
 
 ### Q3 — Drafting task
-- What drafted (email, ticket, PR description, ...):
-- Prompt v1:
+#### How to run it
+1. **v1:** a **new chat**. Paste "Write a merge request description for this fix:" + the diff below. Nothing else. Score it.
+2. **v2:** another new chat, using the template below (diff + test facts + ticket). Score it.
+3. **Discern, the main trap:** an MR description has a "How tested" section, and **the diff alone doesn't say what testing was done**. Watch for invented claims ("tested on a real device", "all UI tests pass", "ANR rate reduced"). Shipping invented test claims is a **Deployment Diligence** failure.
+
+#### Input: the fix (made-up, continues the Q1 scenario, ticket SHOP-482)
+```diff
+--- a/app/src/main/java/com/example/shop/data/auth/TokenProvider.kt
++++ b/app/src/main/java/com/example/shop/data/auth/TokenProvider.kt
+-fun getToken(): String = runBlocking {
+-    if (cache.isExpired()) {
+-        withContext(Dispatchers.IO) {
+-            authApi.refreshToken()
+-        }.also { cache.save(it) }
+-    } else cache.token
+-}
++private val refreshMutex = Mutex()
++
++suspend fun getToken(): String {
++    if (!cache.isExpired()) return cache.token
++    return refreshMutex.withLock {
++        if (!cache.isExpired()) cache.token  // another caller refreshed while we waited
++        else withContext(Dispatchers.IO) { authApi.refreshToken() }.also { cache.save(it) }
++    }
++}
+
+--- a/app/src/main/java/com/example/shop/ui/checkout/CheckoutViewModel.kt
++++ b/app/src/main/java/com/example/shop/ui/checkout/CheckoutViewModel.kt
+ fun onPayClicked() {
+-    val token = tokenProvider.getToken()
+-    viewModelScope.launch { paymentRepo.pay(token, cart) }
++    if (_uiState.value.isPaying) return
++    viewModelScope.launch {
++        _uiState.update { it.copy(isPaying = true) }
++        try {
++            paymentRepo.pay(tokenProvider.getToken(), cart)
++        } finally {
++            _uiState.update { it.copy(isPaying = false) }
++        }
++    }
+ }
+
+--- a/app/src/main/java/com/example/shop/ui/profile/ProfileViewModel.kt   (caller updated to suspend)
+--- a/app/src/main/java/com/example/shop/sync/OrderSyncWorker.kt          (caller updated to suspend)
++++ app/src/test/.../TokenProviderTest.kt     (new: 2 concurrent calls -> refreshToken() called once)
++++ app/src/test/.../CheckoutViewModelTest.kt (new: isPaying true during pay, false after; 2nd tap ignored)
+```
+
+**Testing actually done (facts only you know; Claude can't see these from the diff):**
+- `./gradlew testDebugUnitTest`: passes locally, including the 2 new tests
+- Manual: Pixel 6a **emulator**, Android 14, network throttled to the 3G profile, cached token forced to expire. Tap Pay: no ANR, the button is disabled for ~7 s, then the payment goes through
+- **Not done:** a real device on 4G; UI/instrumented tests; no production ANR data yet
+
+#### v2 prompt template
+```
+Write a GitLab merge request description for the diff below.
+Audience: 2 Android reviewers who know the codebase but not this bug, plus QA who will verify it.
+Context: fixes ticket SHOP-482 (ANR ~6 s after tapping Pay on slow networks). Root cause:
+TokenProvider.getToken() used runBlocking, so the main thread waited on the token refresh
+network call past the 5 s input timeout.
+
+Sections, in this order, in Markdown, max 250 words:
+## What / ## Why / ## How (key decisions: suspend + Mutex, isPaying guard) /
+## Breaking changes / ## How tested / ## Risks & follow-ups / ## QA steps
+Title line first, in the form: fix(checkout): <summary> (SHOP-482)
+
+Rules:
+- "How tested" must list ONLY the facts I give below. Don't add any test, device or metric.
+  If something important is untested, say so under Risks.
+- Don't claim the ANR rate improved; there's no production data yet.
+- Last line: "AI-assisted: drafted with Claude, reviewed and verified by me."
+
+Testing done: <paste the 3 facts above>
+
+Diff:
+<paste the diff>
+```
+Mapping: audience and sections (Product), "only the facts I give" and "don't claim" (anti-fabrication, Deployment Diligence), the AI-assisted line (Transparency Diligence).
+
+#### Discernment checklist
+| Check | v1 | v2 |
+|---|---|---|
+| "How tested" contains **only** real facts (nothing invented about devices, UI tests or metrics) | | |
+| Flags the **breaking change**: `getToken()` is now `suspend`, so callers changed | | |
+| Explains why there's a `Mutex` (concurrent refresh once) and the double-check inside the lock | | |
+| Mentions the `isPaying` guard (double-tap / double-charge protection) | | |
+| States what's untested (real 4G device, no production data) under Risks | | |
+| Gives QA concrete repro/verify steps (expired token + throttled network) | | |
+| Links SHOP-482; follows the title format; within length | | |
+
+#### Record
+- What drafted: GitLab MR description for the ANR fix (SHOP-482), made-up diff continuing Q1
+- Prompt v1 (planned): "Write a merge request description for this fix:" + the diff only
+- Prompt v1 (as actually sent):
 - Answer quality (1–5) + why:
 - Prompt v2 (what changed: tone? audience? constraints? sample?):
 - Answer quality (1–5) + why:

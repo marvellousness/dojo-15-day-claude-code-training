@@ -322,7 +322,42 @@ Mapping: audience and sections (Product), "only the facts I give" and "don't cla
     - it's over the 250-word cap.
 
 - Prompt v2 rerun: same template, with the 3 testing facts filled in and the full diff (TokenProvider, CheckoutViewModel, the 2 callers, the 2 tests); new chat
-- Answer quality, v2 rerun (1–5) + why:
+- Answer, v2 rerun: **not run in claude.ai.** Below is a *reference answer* written by Claude Code from the filled prompt (test results assumed passed, as stated in the facts). Not scored, since it's self-written; use it as the target when you run the real rerun.
+
+````markdown
+fix(checkout): make token refresh non-blocking to prevent ANR on Pay (SHOP-482)
+
+## What
+`TokenProvider.getToken()` is now `suspend`, and Checkout calls it inside a coroutine with a guard against repeated taps.
+
+## Why
+On slow networks, `getToken()` ran the token refresh inside `runBlocking` on the main thread. Waits past the 5 s input timeout caused an ANR ~6 s after tapping Pay.
+
+## How
+- **suspend + Mutex:** the refresh runs on `Dispatchers.IO` without blocking the caller. A `Mutex` lets only one refresh run; callers that waited re-check the cache and reuse the new token.
+- **isPaying guard:** `onPayClicked()` ignores taps while a payment is in flight and resets the flag in `finally`.
+
+## Breaking changes
+`getToken()` is `suspend`. Callers updated: `CheckoutViewModel`, `ProfileViewModel`, `OrderSyncWorker`.
+
+## How tested
+- `./gradlew testDebugUnitTest` passes locally, including 2 new tests: concurrent calls trigger one `refreshToken()`; `isPaying` toggles and a 2nd tap is ignored.
+- Manual: Pixel 6a emulator, Android 14, 3G throttling, token forced to expire. Tap Pay: no ANR, button disabled ~7 s, payment completed.
+
+## Risks & follow-ups
+- Not tested on a real 4G device; no UI/instrumented tests.
+- No production data yet; watch the Pay-flow ANR rate after release.
+- The refresh-failure path is untested: queued callers may each retry.
+
+## QA steps
+1. Force the token to expire; throttle the network to 3G.
+2. Tap Pay: no ANR, the button is disabled, the payment completes.
+3. Tap Pay rapidly: only one payment is submitted.
+
+AI-assisted: drafted with Claude, reviewed and verified by me.
+````
+- Reference checks: "How tested" contains only the 2 given facts (the test names come from the diff); untested items moved to Risks; the breaking change names all 3 callers; the isPaying guard is in How and in QA step 3; ~230 words; title format and AI line present.
+- Answer quality, v2 rerun in claude.ai (1–5) + why: _pending, run it for real to compare with the reference_
 
 **Learnings (Q3):**
 - I left a template placeholder unfilled myself ("<paste the 3 facts above>"); this happened in Q1 v2 too. Before sending, scan the prompt for `<...>`.

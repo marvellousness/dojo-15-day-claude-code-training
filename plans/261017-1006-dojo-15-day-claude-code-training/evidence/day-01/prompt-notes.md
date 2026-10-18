@@ -81,8 +81,11 @@ Reason: Input dispatching timed out (... has not finished processing ... over 50
 ```kotlin
 // TokenProvider.kt
 fun getToken(): String = runBlocking {          // line 41
-    if (cache.isExpired()) authApi.refreshToken().also { cache.save(it) }
-    else cache.token
+    if (cache.isExpired()) {
+        withContext(Dispatchers.IO) {
+            authApi.refreshToken()              // line 44, runs on DefaultDispatcher-worker-N
+        }.also { cache.save(it) }
+    } else cache.token
 }
 
 // CheckoutViewModel.kt
@@ -91,6 +94,8 @@ fun onPayClicked() {
     viewModelScope.launch { paymentRepo.pay(token, cart) }
 }
 ```
+
+> Correction (2026-10-18): the first version of this snippet had no `withContext(Dispatchers.IO)` and no line 44, so it contradicted the trace (a plain `runBlocking` runs on main, but the trace shows the refresh on a worker at line 44). v2 (rerun) caught it. The snippet above is the corrected, consistent version.
 
 **Answer key (don't paste this into Claude):** `runBlocking` at `TokenProvider.kt:41` blocks the main thread until the token refresh finishes. On a slow network the refresh takes more than 5s, which triggers the input-dispatch ANR. It's intermittent because on fast wifi the token is cached or refreshes quickly. A good fix makes `getToken()` a `suspend` function, calls it inside `viewModelScope.launch`, and moves the refresh into an OkHttp `Authenticator`. A bad fix is "increase the timeout", `Thread.sleep`, or blaming the payment SDK.
 
@@ -107,12 +112,15 @@ fun onPayClicked() {
 - Prompt v1 (as actually sent):
 - Answer quality (1–5) + why: **3/5.** The diagnosis is right and well explained (main parked in `runBlocking`, worker in `socketRead0`, the 5s threshold, why only 4G), and the fix is sound. But it isn't a ticket: it's long (verbosity fingerprint), has no title or repro, has no line numbers, and the answer was cut off at the end. It didn't explicitly reject my "payment SDK" guess.
 - Prompt v2 (what changed): new chat; template with app context and audience (team lead + QA), bug facts, trace and code; "think first"; fixed 5-part format with a 150-word cap; "say unknown" and "don't invent APIs" guards.
-- Answer quality (1–5) + why: **4/5.** Ready to paste as a ticket: tagged title, impact, repro, expected/actual, a likely cause with exact file:line, and a verifying next step. Points lost: the preamble shows placeholders were left unfilled in the template and mentions a non-existent "1.2.3" (small fabrication); the repro omits the key precondition (expired cached token); "can't complete a purchase" is inferred, not in the ticket.
+- Answer quality, v2 first run (1–5) + why: **4/5.** Ready to paste as a ticket: tagged title, impact, repro, expected/actual, a likely cause with exact file:line, and a verifying next step. Points lost: the preamble shows placeholders were left unfilled in the template and mentions a non-existent "1.2.3" (small fabrication); the repro omits the key precondition (expired cached token); "can't complete a purchase" is inferred, not in the ticket.
+
+- Answer quality, v2 rerun (1–5) + why: **4/5, close to 5.** The preamble and the "1.2.3" fabrication are gone, and the cause chain is tighter ("socket read runs past the 5s input timeout"). Best part: the next step flagged that the trace (refresh on a worker thread at line 44) doesn't match the pasted code. **That was a real flaw in my scenario**, a strong piece of evidence-based process discernment by the model. Still missing: the expired-token precondition in the repro steps (it's only in the next step), and "can't complete a payment" is still an inferred impact.
 
 **Learnings (Q1):**
 - The biggest gain came from Product Description: audience + fixed format + word cap turned an essay into a ticket (counters verbosity).
 - Asking for file:line citations made the cause checkable in seconds (Discernment).
 - Fill the template myself before sending; unfilled placeholders invite the model to guess (fabrication shows up in specifics).
+- Claude can catch inconsistencies in *my* input when it's asked to cite evidence: the v2 rerun found that the code didn't match the trace. Treat a "this doesn't match" remark as a lead, not noise.
 - A wrong guess wasn't followed here because the trace was unambiguous. To test sycophancy properly, also push back ("Are you sure it's not the payment SDK?") and see whether it holds.
 
 ### Q2 — "Explain this concept"

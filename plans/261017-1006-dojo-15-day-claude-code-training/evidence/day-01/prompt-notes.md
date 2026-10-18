@@ -103,14 +103,15 @@ fun onPayClicked() {
 | Check | v1 | v2 |
 |---|---|---|
 | Cites `runBlocking` at line 41, called from main at line 118 (not the payment SDK) | yes (trace evidence; no line numbers) | yes (lines 118, 41, and `AuthApi.kt:22`) |
+| Spots that the code doesn't match the trace (refresh on worker at line 44) | no | yes (rerun) |
 | Explains why it's 4G-only (slow refresh against the 5s input timeout) | yes, clearly | partly: says it waits past 5s but not why office wifi is fine |
-| Invents nothing | mostly; "if the cached token expired" needs the code (was the code in v1?) | no: "rather than 1.2.3" refers to a value that never existed; "users can't complete a purchase" is an inferred impact |
+| Invents nothing | yes; "if the cached token expired" comes from the code, which was included | no: "rather than 1.2.3" refers to a value that never existed; "users can't complete a purchase" is an inferred impact |
 | Suggests a sound fix (suspend function / Authenticator), not a timeout tweak | yes (suspend + `withContext(IO)`); missed `Authenticator` and refresh dedup (Mutex) | n/a (format asked for a next debugging step: expired token + throttled network, which is good) |
-| v1 only: agrees with my wrong "payment SDK" guess? | no, the right cause won; but it ignored the guess silently instead of correcting it | n/a |
+| v1 only: agrees with my wrong "payment SDK" guess? | not tested: the guess wasn't in the prompt that was sent | n/a |
 
 - Prompt v1 (planned, includes a wrong guess on purpose): "summarize this bug: app freezes on pay button, ANR. I think it's the payment SDK" + the trace
-- Prompt v1 (as actually sent):
-- Answer quality (1–5) + why: **3/5.** The diagnosis is right and well explained (main parked in `runBlocking`, worker in `socketRead0`, the 5s threshold, why only 4G), and the fix is sound. But it isn't a ticket: it's long (verbosity fingerprint), has no title or repro, has no line numbers, and the answer was cut off at the end. It didn't explicitly reject my "payment SDK" guess.
+- Prompt v1 (as actually sent): "Summarize the following bug:" + the full QA ticket, ANR trace and code (the original snippet, before the correction). No audience, no format, no length limit, no guards. **The planned wrong "payment SDK" guess was not included.**
+- Answer quality (1–5) + why: **3/5.** The diagnosis is right and well explained (main parked in `runBlocking`, worker in `socketRead0`, the 5s threshold, why only 4G), and the fix is sound. But it isn't a ticket: it's long (verbosity fingerprint), has no title or repro, has no line numbers, and the answer was cut off at the end. It also missed that the pasted code didn't match the trace.
 - Prompt v2 (what changed): new chat; template with app context and audience (team lead + QA), bug facts, trace and code; "think first"; fixed 5-part format with a 150-word cap; "say unknown" and "don't invent APIs" guards.
 - Answer quality, v2 first run (1–5) + why: **4/5.** Ready to paste as a ticket: tagged title, impact, repro, expected/actual, a likely cause with exact file:line, and a verifying next step. Points lost: the preamble shows placeholders were left unfilled in the template and mentions a non-existent "1.2.3" (small fabrication); the repro omits the key precondition (expired cached token); "can't complete a purchase" is inferred, not in the ticket.
 
@@ -121,7 +122,8 @@ fun onPayClicked() {
 - Asking for file:line citations made the cause checkable in seconds (Discernment).
 - Fill the template myself before sending; unfilled placeholders invite the model to guess (fabrication shows up in specifics).
 - Claude can catch inconsistencies in *my* input when it's asked to cite evidence: the v2 rerun found that the code didn't match the trace. Treat a "this doesn't match" remark as a lead, not noise.
-- A wrong guess wasn't followed here because the trace was unambiguous. To test sycophancy properly, also push back ("Are you sure it's not the payment SDK?") and see whether it holds.
+- The sycophancy test didn't run (the guess was left out of v1). Next time: include the wrong guess, or push back afterwards ("Are you sure it's not the payment SDK?") and see whether it holds.
+- Same input, different instructions: only the prompt that asked for evidence (file:line) noticed the code/trace mismatch.
 
 ### Q2 — "Explain this concept"
 - Concept:

@@ -368,7 +368,38 @@ AI-assisted: drafted with Claude, reviewed and verified by me.
 - Both runs added value I didn't ask for and that holds up (the rotating-token risk, the refresh-failure retry storm, the Interceptor bridge). Keep these as review leads.
 
 ## 1.7 Reflection
-- Prompt changes that helped most:
-- Where output surprised me (good):
-- Where output surprised me (bad / wrong / overconfident):
-- How I verified claims:
+_Draft by Claude from the Q1–Q3 results; edit it into your own words._
+
+**Scores:** Q1 bug summary 3 → 4 · Q2 explain ANR 3 → 4 · Q3 MR description 3 → 4. Every v2 beat its v1, and none reached 5. The remaining gaps were partly my own input mistakes.
+
+- **Prompt changes that helped most:**
+  1. **Audience + goal + fixed format + word cap** (Product Description). This turned an essay into a ticket (Q1), a teachable explainer (Q2) and a structured MR (Q3). It's the biggest single gain and it counters the verbosity default.
+  2. **Ask for evidence:** file:line citations (Q1) and bad → good code (Q2). This made answers quick to check, and in Q1 it led Claude to spot that my code didn't match the trace.
+  3. **Anti-fabrication guards:** "say unknown / mark version-specific / only the facts I give / don't name APIs you're unsure of". Q2 flagged its numbers as approximate and left out what it wasn't sure of; Q3 used `[N]`/`[device]` placeholders instead of inventing them.
+  4. **A new chat for each version.** Q2 v1 reused the Q1 chat, which personalised the answer but spoiled the baseline.
+
+- **Where output surprised me (good):**
+  - Q1 v2 rerun caught a real inconsistency in *my* scenario: the trace showed the refresh on a worker thread at line 44, which the pasted code didn't explain.
+  - Unprompted, correct extra value: the rotating refresh-token risk, the refresh-failure retry chain, the OkHttp Interceptor blocking bridge (Q3), and "`viewModelScope.launch` runs on Main" as the beginner trap (Q2).
+  - When I asked for something not in the input (the isPaying guard), Q3 v2 wrote a TODO instead of inventing code.
+
+- **Where output surprised me (bad / wrong / overconfident):**
+  - Small invented details still slipped through the guards: "rather than 1.2.3" (Q1 first v2), a "valid cache" unit test that was never written, and "only Pay was checked manually" (Q3 v2).
+  - A mislabelled fact delivered confidently: "foreground service lifecycle callback 20 s" (Q2 v2).
+  - Self-contradiction: Q3 v2 marked isPaying as a TODO but still wrote a QA step that tests it.
+  - An inferred impact presented as fact: "users can't complete a payment" (Q1).
+  - **My mistakes:** I sent template placeholders unfilled twice (Q1 v2, Q3 v2), gave a partial diff, and left out the planned wrong guess, so the sycophancy test never ran. Many "model errors" started with my Description.
+
+- **How I verified claims:**
+  - Q1: checked the cause against the trace frames and the code line by line, using an answer key and a 5-item checklist.
+  - Q2: compared each timeout, tool and API against an answer-key table; the remaining numbers are to be confirmed on developer.android.com.
+  - Q3: read "How tested" line by line against what was actually tested, and checked each section against the diff.
+  - General rule from the course: specifics (names, numbers, versions, test claims) are where fabrication concentrates, so they always get checked.
+
+- **Habits I'm keeping:**
+  1. Fill every `<...>` before sending.
+  2. Paste the full input: the whole diff and the real test results.
+  3. Start a new chat per version.
+  4. Ask for citations or evidence.
+  5. Treat "How tested" and any number as unverified until I've checked it myself.
+  6. Treat a "this doesn't match" remark from the model as a lead.

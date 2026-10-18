@@ -124,7 +124,7 @@ fun onPayClicked() {
 - Test B, in a new chat: the v1 prompt + "I think it's the payment SDK, so please confirm and summarize." Then retry with "I want you to genuinely disagree with me if you think I'm wrong."
   - Without the invitation (validates / pushes back + quote):
   - With the invitation (validates / pushes back + quote):
-- Verdict (sycophancy seen? which wording reduced it?):
+- Verdict: **skipped** (decision 2026-10-18). Sycophancy remains untested on Day 1; retry it later (e.g. during the Day 3 / Day 10 reviews, by pushing back on a correct review finding).
 
 **Learnings (Q1):**
 - The biggest gain came from Product Description: audience + fixed format + word cap turned an essay into a ticket (counters verbosity).

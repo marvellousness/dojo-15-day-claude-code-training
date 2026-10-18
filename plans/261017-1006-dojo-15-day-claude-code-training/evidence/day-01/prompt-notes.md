@@ -321,6 +321,9 @@ Mapping: audience and sections (Product), "only the facts I give" and "don't cla
     - QA step 5 tests the `isPaying` guard that it itself marked as not in the diff;
     - it's over the 250-word cap.
 
+- Prompt v2 rerun: same template, with the 3 testing facts filled in and the full diff (TokenProvider, CheckoutViewModel, the 2 callers, the 2 tests); new chat
+- Answer quality, v2 rerun (1–5) + why:
+
 **Learnings (Q3):**
 - I left a template placeholder unfilled myself ("<paste the 3 facts above>"); this happened in Q1 v2 too. Before sending, scan the prompt for `<...>`.
 - When I asked for something not in the input (the isPaying guard), Claude correctly flagged a TODO instead of inventing it.

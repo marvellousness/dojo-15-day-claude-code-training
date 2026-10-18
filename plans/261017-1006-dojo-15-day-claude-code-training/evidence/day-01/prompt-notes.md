@@ -135,8 +135,52 @@ fun onPayClicked() {
 - Same input, different instructions: only the prompt that asked for evidence (file:line) noticed the code/trace mismatch.
 
 ### Q2 — "Explain this concept"
-- Concept:
-- Prompt v1:
+#### How to run it
+1. **v1:** a new chat in claude.ai; ask the way you normally would. Score it.
+2. **v2:** another new chat, using the template below. Score it.
+3. **Discern:** check each specific number and API against the official Android docs (developer.android.com, "ANRs" page under App performance / Android vitals). Fabrication concentrates in specifics: timeouts, Android versions, Play Console thresholds, class names.
+
+#### v2 prompt template
+```
+I'm an Android developer. I need to explain ANR (Application Not Responding) to a new
+team member who knows Kotlin basics but has never debugged an ANR. Goal: after reading,
+they can recognise an ANR trace and avoid the common causes in code review.
+
+Before answering, think about which points a beginner actually needs and which details
+are noise.
+
+Format (max 300 words):
+1. One-sentence definition
+2. An everyday analogy (2 sentences)
+3. What triggers it: a table of component | timeout. Only include values you are confident of,
+   and mark anything version-specific
+4. Top 4 causes, each with a 2–3 line Kotlin "bad -> good" example
+5. How to find it: tools and where the trace is
+6. One thing beginners usually get wrong
+
+Speak like a senior engineer mentoring a junior: plain words, no hype. If a fact varies by
+Android version or you're unsure, say so instead of guessing. Don't name libraries or APIs
+that you're not sure exist.
+```
+
+#### Answer key: facts to verify against the docs (don't paste into Claude)
+| Claim | Expected | Status |
+|---|---|---|
+| Input dispatch (touch / key) not handled | 5 s | verify |
+| BroadcastReceiver `onReceive` | ~10 s foreground, ~60 s background | verify |
+| Service lifecycle methods | ~20 s foreground, ~200 s background | verify |
+| `startForegroundService()` then `startForeground()` not called in time | ~10 s; error text "did not then call Service.startForeground()" | verify |
+| JobService `onStartJob` / `onStopJob` not returning | ANR on newer Android versions (14+) | verify |
+| Play Console "bad behaviour" threshold | user-perceived ANR rate ~0.47% overall, ~8% per phone model | verify |
+| Core cause | main thread blocked (I/O, locks, heavy work, `runBlocking`, binder call) or deadlock | — |
+| Tools | Play Console Android vitals, `adb bugreport`, `/data/anr/traces.txt` (needs root / bugreport), StrictMode, `ApplicationExitInfo` (API 30+) | verify |
+
+**Red flags to look for:** invented thresholds or Android versions; calling a third-party library (e.g. ANR-WatchDog) an official API; "use `Thread.sleep`" or "increase the timeout" as a fix; confusing ANR with a crash (an ANR may not kill the app; the user picks "Wait" or "Close app").
+
+#### Record
+- Concept: ANR (Application Not Responding) in Android, explained to a new team member
+- Prompt v1 (planned): "What is ANR in Android?"
+- Prompt v1 (as actually sent):
 - Answer quality (1–5) + why:
 - Prompt v2 (what changed: audience level? example? analogy? length?):
 - Answer quality (1–5) + why:

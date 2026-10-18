@@ -292,21 +292,40 @@ Mapping: audience and sections (Product), "only the facts I give" and "don't cla
 #### Discernment checklist
 | Check | v1 | v2 |
 |---|---|---|
-| "How tested" contains **only** real facts (nothing invented about devices, UI tests or metrics) | | |
-| Flags the **breaking change**: `getToken()` is now `suspend`, so callers changed | | |
-| Explains why there's a `Mutex` (concurrent refresh once) and the double-check inside the lock | | |
-| Mentions the `isPaying` guard (double-tap / double-charge protection) | | |
-| States what's untested (real 4G device, no production data) under Risks | | |
-| Gives QA concrete repro/verify steps (expired token + throttled network) | | |
-| Links SHOP-482; follows the title format; within length | | |
+| "How tested" contains **only** real facts (nothing invented about devices, UI tests or metrics) | yes: tests listed as unchecked `[ ]` to-dos, not claims | mostly: used `[N]`/`[device]` placeholders, but stated a "valid cache" unit test that was never written and "only Pay was checked manually" without being told |
+| Flags the **breaking change**: `getToken()` is now `suspend`, so callers changed | yes, and warned the callers aren't in the diff (the build would fail) | yes |
+| Explains why there's a `Mutex` (concurrent refresh once) and the double-check inside the lock | yes, very good (rotating refresh tokens can kill the session) | yes |
+| Mentions the `isPaying` guard (double-tap / double-charge protection) | n/a (not in its diff) | left a TODO (correct), but QA step 5 still expects "only one payment", which contradicts that TODO |
+| States what's untested (real 4G device, no production data) under Risks | partly (everything is a to-do) | yes: no production data, the refresh-failure path untested (a real insight), other screens not exercised |
+| Gives QA concrete repro/verify steps (expired token + throttled network) | no | yes |
+| Links SHOP-482; follows the title format; within length | no ticket, no title format; long | title and ticket OK; over 250 words; AI-assisted line present |
 
 #### Record
 - What drafted: GitLab MR description for the ANR fix (SHOP-482), made-up diff continuing Q1
 - Prompt v1 (planned): "Write a merge request description for this fix:" + the diff only
-- Prompt v1 (as actually sent):
-- Answer quality (1–5) + why:
-- Prompt v2 (what changed: tone? audience? constraints? sample?):
-- Answer quality (1–5) + why:
+- Prompt v1 (as actually sent): "Write a merge request description for this fix: Added suspend function to getToken for non-blocker" + the **TokenProvider part of the diff only** (no ViewModel, callers or tests)
+- Answer quality (1–5) + why: **3/5.** Honest and technically strong:
+  - it fixed "non-blocker" to "non-blocking" and explained the `Mutex` and double-checked locking well;
+  - it flagged the breaking change and noticed the callers were missing from the diff;
+  - it raised a real OkHttp `Interceptor`/`Authenticator` blocking-bridge concern;
+  - it put testing as unchecked to-dos instead of inventing results.
+  - But it isn't ready to paste: no link to the ANR/ticket (the "why" is generic), no QA steps, too long, and the to-do list reads like a wishlist.
+- Prompt v2 (as actually sent): the template, but apparently **without the testing facts and with only the TokenProvider diff** (inferred from the `[N]`/`[device]` placeholders and the isPaying TODO; confirm).
+- Answer quality (1–5) + why: **4/5.** Nearly paste-ready:
+  - the title format, ticket, a concrete "why" (5 s input timeout), the breaking change, QA steps and the AI-assisted line are all there;
+  - **it used placeholders rather than inventing build, device and N** (anti-fabrication worked);
+  - it found a real risk: when a refresh fails, each queued caller retries in turn.
+  - Points lost:
+    - it still asserted one unit test that doesn't exist (valid cache → no refresh);
+    - it claimed "only the Pay flow was checked manually" without being told;
+    - QA step 5 tests the `isPaying` guard that it itself marked as not in the diff;
+    - it's over the 250-word cap.
+
+**Learnings (Q3):**
+- The model can only be as accurate as its input: both runs got a partial diff and no test facts, so both had to guess or leave gaps. Paste the full diff and the real test results (Description).
+- "Only the facts I give" mostly worked: placeholders instead of fake devices and numbers. But one invented test still slipped in, so **check "How tested" line by line before posting**; it's the section where invented claims cause real harm (Deployment Diligence).
+- Watch for self-contradiction across sections (the isPaying TODO versus QA step 5).
+- Both runs added value I didn't ask for and that holds up (the rotating-token risk, the refresh-failure retry storm, the Interceptor bridge). Keep these as review leads.
 
 ## 1.7 Reflection
 - Prompt changes that helped most:

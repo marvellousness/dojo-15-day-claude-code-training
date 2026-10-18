@@ -310,7 +310,7 @@ Mapping: audience and sections (Product), "only the facts I give" and "don't cla
   - it raised a real OkHttp `Interceptor`/`Authenticator` blocking-bridge concern;
   - it put testing as unchecked to-dos instead of inventing results.
   - But it isn't ready to paste: no link to the ANR/ticket (the "why" is generic), no QA steps, too long, and the to-do list reads like a wishlist.
-- Prompt v2 (as actually sent): the template, but apparently **without the testing facts and with only the TokenProvider diff** (inferred from the `[N]`/`[device]` placeholders and the isPaying TODO; confirm).
+- Prompt v2 (as actually sent): the full template, but **"Testing done: <paste the 3 facts above>" was left as a literal placeholder**, and the diff had **only the TokenProvider part**. The prompt asked to cover the "isPaying guard", which wasn't in the diff (contradictory input). Confirmed from the actual prompt.
 - Answer quality (1–5) + why: **4/5.** Nearly paste-ready:
   - the title format, ticket, a concrete "why" (5 s input timeout), the breaking change, QA steps and the AI-assisted line are all there;
   - **it used placeholders rather than inventing build, device and N** (anti-fabrication worked);
@@ -322,6 +322,8 @@ Mapping: audience and sections (Product), "only the facts I give" and "don't cla
     - it's over the 250-word cap.
 
 **Learnings (Q3):**
+- I left a template placeholder unfilled myself ("<paste the 3 facts above>"); this happened in Q1 v2 too. Before sending, scan the prompt for `<...>`.
+- When I asked for something not in the input (the isPaying guard), Claude correctly flagged a TODO instead of inventing it.
 - The model can only be as accurate as its input: both runs got a partial diff and no test facts, so both had to guess or leave gaps. Paste the full diff and the real test results (Description).
 - "Only the facts I give" mostly worked: placeholders instead of fake devices and numbers. But one invented test still slipped in, so **check "How tested" line by line before posting**; it's the section where invented claims cause real harm (Deployment Diligence).
 - Watch for self-contradiction across sections (the isPaying TODO versus QA step 5).

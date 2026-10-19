@@ -29,7 +29,7 @@ Courses: finish Claude 101
 - [x] 2.0 Solo prep: scaffold the Android training app in `android-app/` (Kotlin, Compose, MVVM + coroutines, Room notes, fake auth/sync API with delay, JUnit + coroutines-test, one Compose UI test, `.gitlab-ci.yml`); build and run it on the emulator. Claude seeds 5 tickets (`tickets/`) and ≥1 seeded bug on a hidden branch
 - [x] 2.1 Workshop: 5 tickets × three-sentence analysis (ask, ambiguity, first step). Use Claude to find gaps and draft clarifying questions
 - [x] 2.2 Exercise: write reporter questions; role-play reporter/dev with Claude
-- [ ] 2.3 Workshop: run app from clean clone, reproduce seeded bug, write exact repro steps into the ticket (steps, expected vs actual, environment)
+- [x] 2.3 Workshop: run app from clean clone, reproduce seeded bug, write exact repro steps into the ticket (steps, expected vs actual, environment)
 - [ ] 2.4 Claude habit: paste stack trace/code, ask hypotheses, verify each by running
 - [ ] 2.5 Exercise: express bug as failing test
 - [ ] 2.6 Git block: `pull --rebase`, read `git log` / `git diff`, merge conflict #1 (Claude seeds it)

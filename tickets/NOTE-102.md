@@ -34,6 +34,6 @@ Held back (ask later if needed):
   3. Read the message and the markers.
   4. Tap **Sync** again.
 - **Expected:** "Synced 5 note(s)" and all 5 markers cleared; or, if the backend accepts fewer, only those lose the marker and a second sync sends the rest.
-- **Actual:** the message says **"Synced 3 note(s)"**, but **all 5** markers disappear. A second sync has nothing pending, so 2 notes are never sent but look synced to the user (silent data loss).
+- **Actual:** the message says **"Synced 3 note(s)"**, but **all 5** markers disappear. The second sync (step 4) shows **"Synced 0 note(s)"** (verified in a separate run): nothing is pending, so 2 notes are never sent but look synced to the user (silent data loss).
 - **Not yet confirmed:** which 2 notes the backend never received. Next: a breakpoint or temporary log in `FakeSyncApi.push` (per the first step in the analysis).
 - **Linked:** the same sync call is what freezes in NOTE-101 ("Synced 3" was also in Linh's report).

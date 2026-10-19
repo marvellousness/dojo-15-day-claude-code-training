@@ -13,8 +13,8 @@ checkpoint: CP1 (Day 3)
 ## Day 1 — Sat 2026-10-17 — Mental model + Claude basics
 Courses: AI Fluency: Framework and foundations · AI capabilities and limitations · Claude 101 (start)
 
-- [ ] 1.1 Setup check: claude.ai sign-in works, Desktop app installed, this repo cloned
-- [ ] 1.2 Course: AI Fluency (4D: Delegation, Description, Discernment, Diligence)
+- [x] 1.1 Setup check: claude.ai sign-in works, Desktop app installed, this repo cloned
+- [x] 1.2 Course: AI Fluency (4D: Delegation, Description, Discernment, Diligence). Badge: https://academy.claude.com/badges/2914b0a2-b3bd-412e-830f-cef084cd4e78
 - [ ] 1.3 Course: AI capabilities and limitations
 - [ ] 1.4 Course: start Claude 101 (first conversation, prompting, projects/artifacts)
 - [x] 1.5 Git block (local): branch, commit, `--no-ff` merge, delete branch. Push deferred until GitLab reachable

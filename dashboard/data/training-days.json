@@ -7,11 +7,11 @@
     "phase": "Fundamentals",
     "checkpoint": "",
     "status": "in-progress",
-    "tasks_done": 0,
+    "tasks_done": 3,
     "tasks_total": 7,
-    "courses": "AI Fluency, Capabilities & limits, Claude 101 (start)",
+    "courses": "AI Fluency \u2713 (badge), Capabilities & limits, Claude 101 (start)",
     "report": "",
-    "notes": ""
+    "notes": "local git only"
   },
   {
     "day": 2,

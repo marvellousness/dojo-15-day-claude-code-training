@@ -5,7 +5,7 @@
 |---|---|
 | Claude Code CLI | 2.1.302 installed |
 | Claude Desktop app | `/Applications/Claude.app` installed |
-| claude.ai sign-in | _confirm in Desktop app_ |
+| claude.ai sign-in | OK, confirmed by user 2026-10-19 |
 | Repo cloned | yes, remote `git@gitlab.asoft-python.com:tungphan/claude-code-training.git` |
 | GitLab reachable | NO from this machine at 10:47: SSH :22 and HTTPS both time out (VPN needed?) |
 | Node / npm | v22.16.0 / 11.18.0 (ready for Day 2 app) |

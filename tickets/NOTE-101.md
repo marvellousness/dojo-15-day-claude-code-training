@@ -38,8 +38,26 @@ Device: emulator
 - Version 0.1.0 for both builds: there's no way to tell builds apart. Follow-up: show the commit/build id in the app or the APK name.
 - Still needed: the main-thread stack trace (`adb bugreport`, or `/data/anr/` on the emulator) and the emulator API level.
 
-## Repro steps (exact)
-- Environment:
-- Steps:
-- Expected:
-- Actual:
+## Repro steps (exact) — reproduced 2026-10-19 (Claude-assisted, driven via adb)
+- **Environment:** Android emulator `Pixel_9_Pro`, API 36 / Android 16, Google Play image (no root). Build: `feat/training-plan` @ `d39eccc`, `installDebug`, default `SYNC_LATENCY_MS` = 1500. App data cleared (`adb shell pm clear com.dojo.notes`).
+- **Steps:**
+  1. Launch Dojo Notes. Add 5 notes: "test 1" … "test 5". Each shows the "•" (Not synced) marker.
+  2. Tap **Sync**.
+  3. Wait ~1.5–2 s, then tap anywhere on the screen 2 times.
+  4. Wait ~6 s.
+- **Expected:** the UI stays responsive during sync; no ANR.
+- **Actual:** after ~1.5 s the UI stops responding for ~6 s. Touches made during that window aren't handled; after 5 s the system raises an ANR:
+  `ANR in com.dojo.notes (com.dojo.notes/.MainActivity) — Reason: Input dispatching timed out (… Waited 5001ms for MotionEvent)`.
+- **Without step 3 (no touches):** no ANR; the app recovers and shows "Synced 3 note(s)".
+- **Timing-sensitive:** touches in the first ~1.5 s after tapping Sync are handled normally (Run A: taps at 0.5 s and 0.8 s gave no ANR). The freeze starts only after that.
+- **1 note:** "Synced 1 note(s)" appears ~5.6 s after tapping Sync (includes ~0.3 s polling overhead); a shorter freeze, no ANR without heavy tapping.
+- **Main thread at the ANR** (`adb bugreport` → `FS/data/anr/anr_2026-10-19-23-02-47-401`):
+  ```
+  "main" prio=5 tid=1 Sleeping
+    at java.lang.Thread.sleep(Native method)
+    at java.lang.Thread.sleep(Thread.java:356)
+    at com.dojo.notes.data.FakeSyncApi.simulateUpload(FakeSyncApi.kt:34)
+    at com.dojo.notes.data.FakeSyncApi.push(FakeSyncApi.kt:28)
+    at com.dojo.notes.data.NotesRepository.sync(NotesRepository.kt:27)
+  ```
+- **Correction to the reporter's account:** Linh said the button "didn't even switch to Syncing…". The repro shows ~1.5 s of normal behaviour before the freeze, so the button most likely did change first (not visually confirmed: UI dumps block while the main thread is frozen). Reporter observations need checking too.

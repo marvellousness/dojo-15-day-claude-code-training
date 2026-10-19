@@ -20,7 +20,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.dojo.notes.R
 import com.dojo.notes.data.Note
 
 /** Stateless screen: everything comes in through [state] and leaves through callbacks. */
@@ -39,26 +43,30 @@ fun NotesScreen(
             OutlinedTextField(
                 value = draft,
                 onValueChange = { draft = it },
-                label = { Text("New note") },
+                label = { Text(stringResource(R.string.new_note_label)) },
                 modifier = Modifier.weight(1f).testTag("noteInput"),
             )
             Button(
                 onClick = { onAdd(draft); draft = "" },
                 enabled = draft.isNotBlank(),
                 modifier = Modifier.testTag("addButton"),
-            ) { Text("Add") }
+            ) { Text(stringResource(R.string.add)) }
         }
         Button(
             onClick = onSync,
             enabled = !state.isSyncing,
             modifier = Modifier.fillMaxWidth().testTag("syncButton"),
-        ) { Text(if (state.isSyncing) "Syncing…" else "Sync") }
+        ) { Text(stringResource(if (state.isSyncing) R.string.syncing else R.string.sync)) }
         state.message?.let { Text(it, modifier = Modifier.testTag("message")) }
         LazyColumn(Modifier.fillMaxSize()) {
             items(state.notes, key = { it.id }) { note ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(checked = note.done, onCheckedChange = { onToggle(note) })
-                    Text(note.text + if (note.synced) "" else "  •")
+                    Text(note.text)
+                    if (!note.synced) {
+                        val notSynced = stringResource(R.string.not_synced)
+                        Text("  •", modifier = Modifier.semantics { contentDescription = notSynced })
+                    }
                 }
             }
         }

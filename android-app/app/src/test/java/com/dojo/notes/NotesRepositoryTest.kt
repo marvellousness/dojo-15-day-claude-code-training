@@ -41,10 +41,21 @@ class NotesRepositoryTest {
         repository.add("a")
         repository.sync()
 
-        repository.toggleDone(dao.notes.value.single())
+        repository.toggleDone(dao.notes.value.single().id)
 
         val note = dao.notes.value.single()
         assertTrue(note.done)
         assertEquals(false, note.synced)
+    }
+
+    @Test
+    fun `toggling twice returns the note to not done`() = runTest {
+        repository.add("a")
+        val id = dao.notes.value.single().id
+
+        repository.toggleDone(id)
+        repository.toggleDone(id)
+
+        assertEquals(false, dao.notes.value.single().done)
     }
 }

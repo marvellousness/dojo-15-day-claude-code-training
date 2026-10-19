@@ -3,6 +3,7 @@ package com.dojo.notes
 import com.dojo.notes.data.Note
 import com.dojo.notes.data.NoteDao
 import com.dojo.notes.data.SyncApi
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -18,16 +19,20 @@ class FakeNoteDao : NoteDao {
         notes.value = listOf(note.copy(id = id)) + notes.value
         return id
     }
-    override suspend fun update(note: Note) {
-        notes.value = notes.value.map { if (it.id == note.id) note else it }
+    override suspend fun toggleDone(id: Long) {
+        notes.value = notes.value.map { if (it.id == id) it.copy(done = !it.done, synced = false) else it }
     }
     override suspend fun markSynced(ids: List<Long>) {
         notes.value = notes.value.map { if (it.id in ids) it.copy(synced = true) else it }
     }
 }
 
-/** Instant [SyncApi] that records calls and can be told to fail. */
+/**
+ * [SyncApi] that records calls and can be told to fail. Set [gate] to hold `push`
+ * open until the test completes it, to observe the in-flight state.
+ */
 class RecordingSyncApi(var failWith: Exception? = null) : SyncApi {
+    var gate: CompletableDeferred<Unit>? = null
     var tokenCalls = 0
     val pushed = mutableListOf<List<Note>>()
 
@@ -36,6 +41,7 @@ class RecordingSyncApi(var failWith: Exception? = null) : SyncApi {
         return "test-token"
     }
     override suspend fun push(token: String, notes: List<Note>): List<Long> {
+        gate?.await()
         failWith?.let { throw it }
         pushed += notes
         return notes.map { it.id }

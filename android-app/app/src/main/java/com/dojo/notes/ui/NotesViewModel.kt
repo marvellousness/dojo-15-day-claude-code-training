@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dojo.notes.data.Note
 import com.dojo.notes.data.NotesRepository
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -30,15 +31,18 @@ class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
     }
 
     fun toggleDone(note: Note) {
-        viewModelScope.launch { repository.toggleDone(note) }
+        viewModelScope.launch { repository.toggleDone(note.id) }
     }
 
     fun sync() {
         if (syncState.value.isSyncing) return
+        // Set before launching so a second tap is ignored even if the coroutine hasn't started yet.
+        syncState.update { it.copy(isSyncing = true, message = null) }
         viewModelScope.launch {
-            syncState.update { it.copy(isSyncing = true, message = null) }
             val message = try {
                 "Synced ${repository.sync()} note(s)"
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 "Sync failed: ${e.message}"
             }

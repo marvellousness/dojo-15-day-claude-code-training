@@ -15,6 +15,9 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Fake backend latency per call, in ms. Override with -PsyncLatencyMs=5000 for exercises.
+        val syncLatencyMs = (project.findProperty("syncLatencyMs") as String?) ?: "1500"
+        buildConfigField("long", "SYNC_LATENCY_MS", "${syncLatencyMs}L")
     }
 
     buildTypes {
@@ -30,6 +33,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

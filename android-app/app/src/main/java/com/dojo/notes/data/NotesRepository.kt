@@ -15,8 +15,8 @@ class NotesRepository(
         dao.insert(Note(text = trimmed))
     }
 
-    suspend fun toggleDone(note: Note) {
-        dao.update(note.copy(done = !note.done, synced = false))
+    suspend fun toggleDone(id: Long) {
+        dao.toggleDone(id)
     }
 
     /** Pushes unsynced notes and returns how many were accepted. */

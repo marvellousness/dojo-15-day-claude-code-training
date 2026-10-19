@@ -2,13 +2,13 @@
 phase: 4
 title: "Automate, review, role day (Days 9–11)"
 status: todo
-dates: 2026-10-25 → 2026-10-27
+dates: 2026-10-27 → 2026-10-29
 checkpoint: CP3 (Day 11)
 ---
 
 # Phase 04 — Hooks, automation, review, role day
 
-## Day 9 — Sun 2026-10-25 — Hooks & automation
+## Day 9 — Tue 2026-10-27 — Hooks & automation
 - [ ] 9.1 Hooks via `/hooks`: format-on-edit, block-forbidden-command, notify-on-finish
 - [ ] 9.2 Ship one hook as MR (`.claude/settings.json`)
 - [ ] 9.3 Automation ladder: `/goal` on a bounded task
@@ -19,7 +19,7 @@ checkpoint: CP3 (Day 11)
 
 Evidence: hook MR link, routine screenshot, CI review notes.
 
-## Day 10 — Mon 2026-10-26 — Review & quality
+## Day 10 — Wed 2026-10-28 — Review & quality
 - [ ] 10.1 `/code-review` on a real branch
 - [ ] 10.2 `/code-review ultra` on a seeded-buggy branch (Claude seeds it); compare signal
 - [ ] 10.3 Security: `/security-review`; walk through `security-guidance` plugin / Claude Security scan
@@ -27,7 +27,7 @@ Evidence: hook MR link, routine screenshot, CI review notes.
 
 Evidence: review outputs, fix MR, `evidence/day-10/false-positives.md`.
 
-## Day 11 — Tue 2026-10-27 — Role day (Web) · **Checkpoint 3**
+## Day 11 — Thu 2026-10-29 — Role day (Web) · **Checkpoint 3**
 Optional course: AI-native SDLC playbook (start)
 
 - [ ] 11.1 Claude in Chrome: test training app from a session (console logs, form fill); `/chrome`

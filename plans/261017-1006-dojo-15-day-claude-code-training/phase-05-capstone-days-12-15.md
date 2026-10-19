@@ -2,7 +2,7 @@
 phase: 5
 title: "Capstone (Days 12–15)"
 status: todo
-dates: 2026-10-28 → 2026-10-31
+dates: 2026-10-30 → 2026-11-02
 checkpoint: Final (Day 15)
 ---
 
@@ -11,7 +11,7 @@ checkpoint: Final (Day 15)
 Mini-product: one feature for the training app, briefed vaguely by the "client" (Claude, solo mode). User plays BA → QA → Dev in turn.
 Rule: every work artifact (spec, tests, MRs, notes) is Claude-assisted and human-edited.
 
-## Day 12 — Wed 2026-10-28 — Kickoff and planning
+## Day 12 — Fri 2026-10-30 — Kickoff and planning
 Optional course: finish AI-native SDLC playbook
 
 - [ ] 12.1 Client brief (Claude writes it vague on purpose) → `capstone/brief.md`
@@ -21,18 +21,18 @@ Optional course: finish AI-native SDLC playbook
 - [ ] 12.5 QA: test matrix from acceptance criteria
 - [ ] 12.6 Dev questions only via tickets
 
-## Day 13 — Thu 2026-10-29 — Build
+## Day 13 — Sat 2026-10-31 — Build
 - [ ] 13.1 Plan mode first for each ticket; approve plan before code
 - [ ] 13.2 Parallel worktree sessions, one MR per ticket
 - [ ] 13.3 QA: automated suite (Vitest + Playwright) authored alongside
 - [ ] 13.4 BA: update spec as questions resolve
 
-## Day 14 — Fri 2026-10-30 — Test and harden
+## Day 14 — Sun 2026-11-01 — Test and harden
 - [ ] 14.1 QA: regression + automated suite in GitLab CI; `/loop` babysits the pipeline
 - [ ] 14.2 Dev: `/code-review` (ultrareview if auth/data touched); fix findings
 - [ ] 14.3 BA: client-facing release notes artifact from merged MRs
 
-## Day 15 — Sat 2026-10-31 — Review, merge, demo · **Final checkpoint**
+## Day 15 — Mon 2026-11-02 — Review, merge, demo · **Final checkpoint**
 Optional course: Building effective human-agent teams
 
 - [ ] 15.1 Cross-review: dev reviews test code; QA reviews a dev MR; BA checks merged behavior vs criteria, gaps → same-day tickets

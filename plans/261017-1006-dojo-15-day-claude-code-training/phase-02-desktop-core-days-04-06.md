@@ -2,7 +2,7 @@
 phase: 2
 title: "Claude Code Desktop core (Days 4–6)"
 status: todo
-dates: 2026-10-20 → 2026-10-22
+dates: 2026-10-22 → 2026-10-24
 checkpoint: CP2 (Day 6)
 ---
 
@@ -10,7 +10,7 @@ checkpoint: CP2 (Day 6)
 
 **Goal:** Code tab becomes primary dev environment; memory/context under control; flagship features + parallel work.
 
-## Day 4 — Tue 2026-10-20 — Install, tour, first session, daily loop
+## Day 4 — Thu 2026-10-22 — Install, tour, first session, daily loop
 Courses: Claude Code 101 · Claude Code in action. Docs: quickstart, desktop get-started, common workflows, best practices.
 
 - [ ] 4.1 Install/verify Desktop Code tab on this repo; session basics (sidebar, resume, one-topic-per-session)
@@ -24,7 +24,7 @@ Courses: Claude Code 101 · Claude Code in action. Docs: quickstart, desktop get
 
 Evidence: claim-verification notes, 2 MR links, screenshot of hunk-comment steer (counts toward CP2).
 
-## Day 5 — Wed 2026-10-21 — Memory & context
+## Day 5 — Fri 2026-10-23 — Memory & context
 - [ ] 5.1 Write repo `CLAUDE.md`: build/run commands, conventions, "never do" list, under one screen
 - [ ] 5.2 Auto memory + compaction: long session, `/compact`, observe what survives; inspect `/memory`
 - [ ] 5.3 Checkpointing: make a bad edit, Esc Esc → `/rewind`
@@ -32,7 +32,7 @@ Evidence: claim-verification notes, 2 MR links, screenshot of hunk-comment steer
 
 Evidence: CLAUDE.md MR, comparison table in `evidence/day-05/context-comparison.md`.
 
-## Day 6 — Thu 2026-10-22 — Flagship features + parallel · **Checkpoint 2**
+## Day 6 — Sat 2026-10-24 — Flagship features + parallel · **Checkpoint 2**
 Course: Introduction to subagents
 
 - [ ] 6.1 Artifacts: publish MR walkthrough artifact from a session

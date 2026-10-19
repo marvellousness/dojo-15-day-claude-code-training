@@ -24,7 +24,7 @@
 
 ## Blockers
 - GitLab (`gitlab.asoft-python.com`) is unreachable from this machine (SSH and HTTPS time out). Action: work on local git only and simulate MRs; push once the network or VPN allows. Owner: me.
-- Behind schedule: Day 1 closed on 2026-10-19, two days late. Action: decide whether to shift the calendar or catch up.
+- Behind schedule: Day 1 closed on 2026-10-19, two days late. Action: Days 2–15 shifted +2 days; the program now ends Mon 2026-11-02.
 
 ## Learnings
 - **Prompt change that helped:** stating the audience, goal, fixed format and word limit, and asking for evidence (file:line, bad → good code). This turned essays into usable tickets, explanations and MRs.
@@ -34,9 +34,9 @@
 - **Verified vs trusted:** I checked every specific (numbers, versions, test claims) against answer keys, the trace, the code and the docs. "How tested" stays unverified until I check it line by line.
 
 ## Checkpoint status
-- CP1 (Day 3): 0/4. It needs a repro in a ticket, a fix plus test, an MR, a review and a merge with a resolved conflict (Days 2–3).
+- CP1 (Day 3, now Wed 2026-10-21): 0/4. It needs a repro in a ticket, a fix plus test, an MR, a review and a merge with a resolved conflict (Days 2–3).
 
-## Plan tomorrow (Day 02)
+## Plan tomorrow (Day 02, Tue 2026-10-20)
 - 2.0: scaffold the training app (Node + TS, Express, Vitest, Playwright, CI file); Claude seeds 5 tickets and a hidden bug.
 - 2.1–2.5: ticket analysis, clarifying questions, repro steps, hypotheses verified by running, the bug as a failing test.
 - 2.6: git block, covering `pull --rebase`, log and diff, and merge conflict #1.

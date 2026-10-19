@@ -2,7 +2,7 @@
 phase: 1
 title: "Shared fundamentals (Days 1–3)"
 status: in-progress
-dates: 2026-10-17 → 2026-10-19
+dates: 2026-10-17 → 2026-10-21
 checkpoint: CP1 (Day 3)
 ---
 
@@ -23,7 +23,7 @@ Courses: AI Fluency: Framework and foundations · AI capabilities and limitation
 
 Evidence: `evidence/day-01/prompt-notes.md`, MR link from git block.
 
-## Day 2 — Sun 2026-10-18 — Ticket analysis, reproduce & understand
+## Day 2 — Tue 2026-10-20 — Ticket analysis, reproduce & understand
 Courses: finish Claude 101
 
 - [ ] 2.0 Solo prep: scaffold training app (Node + TS, Express API + static UI, Vitest, Playwright, `.gitlab-ci.yml`). Claude seeds 5 tickets (`tickets/`) and ≥1 seeded bug on a hidden branch
@@ -37,7 +37,7 @@ Courses: finish Claude 101
 
 Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolution commit.
 
-## Day 3 — Mon 2026-10-19 — Fix, review, merge · **Checkpoint 1**
+## Day 3 — Wed 2026-10-21 — Fix, review, merge · **Checkpoint 1**
 - [ ] 3.1 Workshop: fix Day-2 bug on a branch, small commits, test included
 - [ ] 3.2 Exercise: MR description (what / why / how tested / screenshots). Draft with Claude, edit by hand. Open MR
 - [ ] 3.3 Peer swap (solo): Claude reads your MR and says whether it could review from description alone; you do the same on a Claude-authored MR

@@ -2,13 +2,13 @@
 phase: 3
 title: "Extend: skills, plugins, MCP (Days 7–8)"
 status: todo
-dates: 2026-10-23 → 2026-10-24
+dates: 2026-10-25 → 2026-10-26
 checkpoint: feeds CP3
 ---
 
 # Phase 03 — Skills, plugins, MCP
 
-## Day 7 — Fri 2026-10-23 — Skills, commands, plugins
+## Day 7 — Sun 2026-10-25 — Skills, commands, plugins
 Course: Introduction to agent skills
 
 - [ ] 7.1 Course: Introduction to agent skills
@@ -20,7 +20,7 @@ Course: Introduction to agent skills
 
 Evidence: MR link, `evidence/day-07/plugin-evaluation.md`.
 
-## Day 8 — Sat 2026-10-24 — MCP & connectors
+## Day 8 — Mon 2026-10-26 — MCP & connectors
 Course: Introduction to model context protocol
 
 - [ ] 8.1 Course: Introduction to model context protocol

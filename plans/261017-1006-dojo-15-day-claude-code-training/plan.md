@@ -8,7 +8,7 @@ branch: feat/training-plan
 tags: [training, claude-code, dojo, developer-track]
 created: 2026-10-17
 start: 2026-10-17
-end: 2026-10-31
+end: 2026-11-02
 source: https://dojo.agilityio.dev/courses.html
 ---
 
@@ -19,18 +19,18 @@ Complete the AgilityIO Dojo program (https://dojo.agilityio.dev) in 15 calendar 
 This repo is the sandbox: training app, `CLAUDE.md`, `.claude/` skills/hooks, MRs all live here.
 The site's "Mark day complete" button is browser-only, so [progress.md](./progress.md) is the source of truth.
 
-- Day 1: Sat 2026-10-17. Day 15: Sat 2026-10-31. Weekends count.
+- Day 1: Sat 2026-10-17. Days 2–15 shifted +2 days on 2026-10-19 (Day 1 closed late): Day 2 = Tue 2026-10-20, Day 15 = Mon 2026-11-02. Weekends count.
 - Daily shape: ~6h hands-on, assigned courses, end-of-day status report (replaces the 10-minute standup).
 - Source pages: `schedule/day-01..15.html`, `fundamentals.html`, `developer.html`, `courses.html` (verified on the site 2026-10-07; re-check each week).
 
 ## Phases
 | Phase | Days | Dates | Focus | Status |
 |---|---|---|---|---|
-| [Phase 01](./phase-01-fundamentals-days-01-03.md) | 1–3 | 10-17 → 10-19 | Shared fundamentals, training app, CP1 | in-progress |
-| [Phase 02](./phase-02-desktop-core-days-04-06.md) | 4–6 | 10-20 → 10-22 | Claude Code Desktop core, memory, flagship + parallel, CP2 | todo |
-| [Phase 03](./phase-03-extend-skills-mcp-days-07-08.md) | 7–8 | 10-23 → 10-24 | Skills, plugins, MCP | todo |
-| [Phase 04](./phase-04-automate-review-role-days-09-11.md) | 9–11 | 10-25 → 10-27 | Hooks, automation, review, role day, CP3 | todo |
-| [Phase 05](./phase-05-capstone-days-12-15.md) | 12–15 | 10-28 → 10-31 | Capstone: plan, build, harden, demo, final CP | todo |
+| [Phase 01](./phase-01-fundamentals-days-01-03.md) | 1–3 | 10-17 → 10-21 | Shared fundamentals, training app, CP1 | in-progress |
+| [Phase 02](./phase-02-desktop-core-days-04-06.md) | 4–6 | 10-22 → 10-24 | Claude Code Desktop core, memory, flagship + parallel, CP2 | todo |
+| [Phase 03](./phase-03-extend-skills-mcp-days-07-08.md) | 7–8 | 10-25 → 10-26 | Skills, plugins, MCP | todo |
+| [Phase 04](./phase-04-automate-review-role-days-09-11.md) | 9–11 | 10-27 → 10-29 | Hooks, automation, review, role day, CP3 | todo |
+| [Phase 05](./phase-05-capstone-days-12-15.md) | 12–15 | 10-30 → 11-02 | Capstone: plan, build, harden, demo, final CP | todo |
 
 ## Checkpoint gates (pass to continue)
 | CP | Day | Pass criteria |

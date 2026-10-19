@@ -7,12 +7,19 @@ When I press Sync the whole app freezes. Sometimes it comes back, sometimes Andr
 Device: emulator
 
 ---
-## Analysis (fill in)
-- Ask:
-- Ambiguity:
-- First step:
+## Analysis (draft, Claude-assisted; edit before it counts)
+- Ask: QA wants Sync to stop freezing the app, because it blocks their testing.
+- Ambiguity: "freezes" (how long?), "sometimes" (under which conditions does it recover vs show the dialog?), and "first build" (which build is good, which is bad?) are all undefined, and "emulator" gives no API level or settings.
+- First step: get the exact good and bad build numbers and the reporter's data state, then try to reproduce on the bad build with the same API level, timing how long the UI is unresponsive.
 
 ## Clarifying questions for the reporter
+1. Which exact build shows the freeze, and which earlier build did not? (version name/code or commit)
+2. How many notes were on the device, and how many showed the unsynced marker when you pressed Sync?
+3. How long does the freeze last when it recovers? Seconds, roughly?
+4. Did you touch the screen or press buttons while it was frozen? Does the "isn't responding" dialog appear only then?
+5. Which emulator image and API level? Any network throttling or slow host machine?
+6. Does it happen on every Sync, or only the first one after adding notes?
+7. Can you attach logcat (or the ANR trace) from a run where the dialog appeared?
 
 ## Repro steps (exact)
 - Environment:

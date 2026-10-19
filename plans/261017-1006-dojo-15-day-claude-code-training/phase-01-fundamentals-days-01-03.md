@@ -18,8 +18,8 @@ Courses: AI Fluency: Framework and foundations · AI capabilities and limitation
 - [x] 1.3 Course: AI capabilities and limitations. Badge: https://academy.claude.com/badges/6695dbe2-cf03-42bd-95cc-face36fd48a0
 - [ ] 1.4 Course: start Claude 101 (first conversation, prompting, projects/artifacts)
 - [x] 1.5 Git block (local): branch, commit, `--no-ff` merge, delete branch. Push deferred until GitLab reachable
-- [ ] 1.6 Exercise: in Claude chat, get a useful answer to 3 real work questions: one bug summary, one "explain this concept", one drafting task
-- [ ] 1.7 Note which prompt changes improved each answer; note where output surprised you (good and bad)
+- [x] 1.6 Exercise: in Claude chat, get a useful answer to 3 real work questions: one bug summary, one "explain this concept", one drafting task
+- [x] 1.7 Note which prompt changes improved each answer; note where output surprised you (good and bad)
 
 Evidence: `evidence/day-01/prompt-notes.md`, MR link from git block.
 

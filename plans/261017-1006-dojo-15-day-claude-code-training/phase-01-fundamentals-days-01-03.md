@@ -15,7 +15,7 @@ Courses: AI Fluency: Framework and foundations · AI capabilities and limitation
 
 - [x] 1.1 Setup check: claude.ai sign-in works, Desktop app installed, this repo cloned
 - [x] 1.2 Course: AI Fluency (4D: Delegation, Description, Discernment, Diligence). Badge: https://academy.claude.com/badges/2914b0a2-b3bd-412e-830f-cef084cd4e78
-- [x] 1.3 Course: AI capabilities and limitations. Badge: https://academy.claude.com/courses/ai-capabilities-and-limitations/badge (course badge page; swap in the personal /badges/<id> link when available)
+- [x] 1.3 Course: AI capabilities and limitations. Badge: https://academy.claude.com/badges/6695dbe2-cf03-42bd-95cc-face36fd48a0
 - [ ] 1.4 Course: start Claude 101 (first conversation, prompting, projects/artifacts)
 - [x] 1.5 Git block (local): branch, commit, `--no-ff` merge, delete branch. Push deferred until GitLab reachable
 - [ ] 1.6 Exercise: in Claude chat, get a useful answer to 3 real work questions: one bug summary, one "explain this concept", one drafting task

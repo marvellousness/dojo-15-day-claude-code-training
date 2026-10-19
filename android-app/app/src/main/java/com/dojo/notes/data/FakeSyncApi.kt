@@ -23,7 +23,18 @@ class FakeSyncApi(private val latencyMs: Long = 1_500) : SyncApi {
 
     override suspend fun push(token: String, notes: List<Note>): List<Long> {
         require(token.isNotBlank()) { "missing token" }
-        delay(latencyMs)
-        return notes.map { it.id }
+        // The real backend accepts at most MAX_BATCH notes per request.
+        val batch = notes.take(MAX_BATCH)
+        simulateUpload(batch.size)
+        return batch.map { it.id }
+    }
+
+    /** Mimics a blocking HTTP client: connection setup plus time per uploaded note. */
+    private fun simulateUpload(items: Int) {
+        Thread.sleep(latencyMs * (items + 1))
+    }
+
+    companion object {
+        const val MAX_BATCH = 3
     }
 }

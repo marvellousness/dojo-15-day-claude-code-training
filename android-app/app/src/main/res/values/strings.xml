@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Dojo Notes</string>
+    <string name="new_note_label">New note</string>
+    <string name="add">Add</string>
+    <string name="sync">Sync</string>
+    <string name="syncing">Syncing…</string>
+    <string name="not_synced">Not synced</string>
+</resources>

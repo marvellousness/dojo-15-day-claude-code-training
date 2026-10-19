@@ -20,12 +20,12 @@
     "topic": "Ticket analysis, reproduce",
     "phase": "Fundamentals",
     "checkpoint": "",
-    "status": "todo",
-    "tasks_done": 0,
+    "status": "in-progress",
+    "tasks_done": 1,
     "tasks_total": 8,
     "courses": "Claude 101 (start + finish)",
     "report": "",
-    "notes": "app scaffold here"
+    "notes": "Android app merged (review: 6 comments); seed/day-02-bugs ready"
   },
   {
     "day": 3,

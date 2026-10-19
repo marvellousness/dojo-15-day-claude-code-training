@@ -27,12 +27,12 @@ Evidence: hook MR link, routine screenshot, CI review notes.
 
 Evidence: review outputs, fix MR, `evidence/day-10/false-positives.md`.
 
-## Day 11 — Thu 2026-10-29 — Role day (Web) · **Checkpoint 3**
+## Day 11 — Thu 2026-10-29 — Role day (Mobile, adapted from Web) · **Checkpoint 3**
 Optional course: AI-native SDLC playbook (start)
 
-- [ ] 11.1 Claude in Chrome: test training app from a session (console logs, form fill); `/chrome`
-- [ ] 11.2 Browser pane app-preview loop
-- [ ] 11.3 Playwright MCP: drive + verify running app from a session
+- [ ] 11.1 Claude tests the app on the emulator from a session: install, run a flow, read logcat (replaces Claude in Chrome)
+- [ ] 11.2 Screenshot review loop: `screencap`, Claude checks the UI, fix, repeat (replaces the browser pane preview)
+- [ ] 11.3 Drive and verify the running app with the device MCP or adb, then lock the flow in with a Compose UI test (replaces Playwright)
 - [ ] 11.4 Role-day exercise write-up in `evidence/day-11/`
 
 ### CP3 pass criteria

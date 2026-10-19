@@ -24,7 +24,7 @@ Optional course: finish AI-native SDLC playbook
 ## Day 13 — Sat 2026-10-31 — Build
 - [ ] 13.1 Plan mode first for each ticket; approve plan before code
 - [ ] 13.2 Parallel worktree sessions, one MR per ticket
-- [ ] 13.3 QA: automated suite (Vitest + Playwright) authored alongside
+- [ ] 13.3 QA: automated suite (JUnit + coroutines-test unit tests, Compose UI tests) authored alongside
 - [ ] 13.4 BA: update spec as questions resolve
 
 ## Day 14 — Sun 2026-11-01 — Test and harden

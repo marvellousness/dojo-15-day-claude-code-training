@@ -25,8 +25,8 @@ Course: Introduction to model context protocol
 
 - [ ] 8.1 Course: Introduction to model context protocol
 - [ ] 8.2 GitLab connector (replaces GitHub): add GitLab MCP server or use `glab` CLI with a scoped token; restart session; confirm MR/issue tools work
-- [ ] 8.3 Playwright MCP: `claude mcp add playwright -- npx -y @playwright/mcp@latest`; restart; confirm open/click/screenshot tools
-- [ ] 8.4 Exercise: one MCP tool end-to-end in a session (e.g. list MRs, comment on one; or drive the app with Playwright)
+- [ ] 8.3 Device-control MCP for the Android emulator (replaces Playwright): pick a maintained server on the day and verify it exists and its permissions before adding; restart; confirm tap/screenshot/UI-tree tools. Fallback: Claude drives `adb shell input`, `uiautomator dump` and `screencap` via Bash
+- [ ] 8.4 Exercise: one MCP tool end-to-end in a session (e.g. list MRs and comment on one, or drive the app on the emulator)
 
 Evidence: session screenshot / transcript excerpt in `evidence/day-08/` (counts toward CP3).
 Security: token in env / keychain only, never committed.

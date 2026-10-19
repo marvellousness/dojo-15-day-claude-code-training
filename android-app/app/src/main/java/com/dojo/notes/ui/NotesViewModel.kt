@@ -1,0 +1,48 @@
+package com.dojo.notes.ui
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dojo.notes.data.Note
+import com.dojo.notes.data.NotesRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+data class NotesUiState(
+    val notes: List<Note> = emptyList(),
+    val isSyncing: Boolean = false,
+    val message: String? = null,
+)
+
+class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
+    private val syncState = MutableStateFlow(NotesUiState())
+
+    val uiState: StateFlow<NotesUiState> =
+        combine(repository.notes, syncState) { notes, sync -> sync.copy(notes = notes) }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), NotesUiState())
+
+    fun addNote(text: String) {
+        viewModelScope.launch { repository.add(text) }
+    }
+
+    fun toggleDone(note: Note) {
+        viewModelScope.launch { repository.toggleDone(note) }
+    }
+
+    fun sync() {
+        if (syncState.value.isSyncing) return
+        viewModelScope.launch {
+            syncState.update { it.copy(isSyncing = true, message = null) }
+            val message = try {
+                "Synced ${repository.sync()} note(s)"
+            } catch (e: Exception) {
+                "Sync failed: ${e.message}"
+            }
+            syncState.update { it.copy(isSyncing = false, message = message) }
+        }
+    }
+}

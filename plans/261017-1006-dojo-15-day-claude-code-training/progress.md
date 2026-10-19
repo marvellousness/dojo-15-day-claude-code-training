@@ -1,14 +1,14 @@
 # Training Progress — source of truth
 
-Last updated: 2026-10-19 · Overall: **0 / 15 days done (0%)** · Tasks: **6 / 98**
+Last updated: 2026-10-19 · Overall: **1 / 15 days done (7%)** · Tasks: **6 / 98**
 
 Status values: `todo` · `in-progress` · `done` · `blocked`
 
 ## Days
 | Day | Date | Topic | Status | Tasks | Courses | Report | Evidence | Notes |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 2026-10-17 Sat | Mental model + Claude basics | in-progress | 6/7 | AI Fluency ✓ (badge), Capabilities & limits ✓ (badge), Claude 101 (start) | — | evidence/day-01/prompt-notes.md | local git only |
-| 2 | 2026-10-18 Sun | Ticket analysis, reproduce | todo | 0/8 | Claude 101 (finish) | — | — | app scaffold here |
+| 1 | 2026-10-17 Sat | Mental model + Claude basics | done | 6/7 | AI Fluency ✓ (badge), Capabilities & limits ✓ (badge), Claude 101 → Day 2 | reports/day-01-261017-status.md | evidence/day-01/prompt-notes.md | 1.4 carried to Day 2; closed 10-19; local git only |
+| 2 | 2026-10-18 Sun | Ticket analysis, reproduce | todo | 0/8 | Claude 101 (start + finish) | — | — | app scaffold here |
 | 3 | 2026-10-19 Mon | Fix, review, merge (CP1) | todo | 0/9 | — | — | — | |
 | 4 | 2026-10-20 Tue | Install & daily loop | todo | 0/8 | Claude Code 101, CC in action | — | — | |
 | 5 | 2026-10-21 Wed | Memory & context | todo | 0/4 | — | — | — | |
@@ -36,3 +36,4 @@ Task counts include checkpoint criteria items in phase files.
 ## Blockers log
 | Date | Day | Blocker | Action | Resolved |
 |---|---|---|---|---|
+| 2026-10-17 | 1 | GitLab gitlab.asoft-python.com unreachable (SSH :22 and HTTPS time out); `glab` not installed | Local git only: simulate MRs with branch + `mr/<branch>.md` + `--no-ff` merge; push later (VPN?) | no |

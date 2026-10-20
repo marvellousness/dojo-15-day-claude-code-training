@@ -10,5 +10,7 @@ Five tickets, written the way real reporters write them: some vague, some missin
 | [NOTE-104](./NOTE-104.md) | Feature | Make notes searchable | Product owner |
 | [NOTE-105](./NOTE-105.md) | Feature | Done notes should go to the bottom | End user |
 | NOTE-106 | Bug | (reserved, triage pending) | QA |
+| [NOTE-107](./NOTE-107.md) | Bug | One sync doesn't send all notes, and the message doesn't say so | Dev |
+| [NOTE-108](./NOTE-108.md) | Bug | A change made while Sync is running is never sent | Dev |
 
 The app lives in `android-app/`. Don't read the `answer-key/day-02` branch until you've written your analyses and repro steps.

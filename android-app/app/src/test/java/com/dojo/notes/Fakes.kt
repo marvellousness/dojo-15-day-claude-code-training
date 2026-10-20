@@ -33,12 +33,13 @@ class FakeNoteDao : NoteDao {
  */
 class RecordingSyncApi(var failWith: Exception? = null) : SyncApi {
     var gate: CompletableDeferred<Unit>? = null
+    var token = "test-token"
     var tokenCalls = 0
     val pushed = mutableListOf<List<Note>>()
 
     override suspend fun fetchToken(): String {
         tokenCalls++
-        return "test-token"
+        return token
     }
     override suspend fun push(token: String, notes: List<Note>): List<Long> {
         gate?.await()

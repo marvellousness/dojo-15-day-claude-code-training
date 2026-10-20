@@ -31,7 +31,7 @@ class NotesViewModelTest {
 
     @Test
     fun `sync reports how many notes were pushed`() = runTest(dispatcher) {
-        val vm = NotesViewModel(NotesRepository(dao, api))
+        val vm = NotesViewModel(NotesRepository(dao, api, dispatcher))
         backgroundScope.launch { vm.uiState.collect {} }
 
         vm.addNote("a")
@@ -46,7 +46,7 @@ class NotesViewModelTest {
     @Test
     fun `sync failure is shown, not thrown`() = runTest(dispatcher) {
         api.failWith = IllegalStateException("offline")
-        val vm = NotesViewModel(NotesRepository(dao, api))
+        val vm = NotesViewModel(NotesRepository(dao, api, dispatcher))
         backgroundScope.launch { vm.uiState.collect {} }
 
         vm.addNote("a")
@@ -60,7 +60,7 @@ class NotesViewModelTest {
     fun `isSyncing is true while a sync is in flight and a second tap is ignored`() = runTest(dispatcher) {
         val gate = CompletableDeferred<Unit>()
         api.gate = gate
-        val vm = NotesViewModel(NotesRepository(dao, api))
+        val vm = NotesViewModel(NotesRepository(dao, api, dispatcher))
         backgroundScope.launch { vm.uiState.collect {} }
         vm.addNote("a")
         advanceUntilIdle()

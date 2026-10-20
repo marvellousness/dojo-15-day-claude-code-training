@@ -9,5 +9,6 @@ Five tickets, written the way real reporters write them: some vague, some missin
 | [NOTE-103](./NOTE-103.md) | Bug | Half-typed note disappears when I rotate the phone | End user |
 | [NOTE-104](./NOTE-104.md) | Feature | Make notes searchable | Product owner |
 | [NOTE-105](./NOTE-105.md) | Feature | Done notes should go to the bottom | End user |
+| NOTE-106 | Bug | (reserved, triage pending) | QA |
 
 The app lives in `android-app/`. Don't read the `answer-key/day-02` branch until you've written your analyses and repro steps.

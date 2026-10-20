@@ -38,7 +38,7 @@ Courses: finish Claude 101
 Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolution commit.
 
 ## Day 3 — Wed 2026-10-21 — Fix, review, merge · **Checkpoint 1**
-- [ ] 3.1 Workshop: fix Day-2 bug on a branch, small commits, test included
+- [x] 3.1 Workshop: fix Day-2 bug on a branch, small commits, test included (branch `fix/note-101-102-sync`: e86ab31 NOTE-102, c1d0e56 NOTE-101; Claude-assisted)
 - [ ] 3.2 Exercise: MR description (what / why / how tested / screenshots). Draft with Claude, edit by hand. Open MR
 - [ ] 3.3 Peer swap (solo): Claude reads your MR and says whether it could review from description alone; you do the same on a Claude-authored MR
 - [ ] 3.4 Workshop: review checklist (correctness → tests → readability → security basics → scope). Review the Claude-authored MR with ≥3 actionable comments
@@ -46,7 +46,7 @@ Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolu
 
 ### CP1 pass criteria
 - [x] Reproduce assigned bug, repro written in ticket (NOTE-101, NOTE-102; done Day 2)
-- [ ] Fix on a branch with a test
+- [x] Fix on a branch with a test (`fix/note-101-102-sync`, `SyncContractTest` green)
 - [ ] MR with self-contained description
 - [ ] One review with ≥3 actionable comments + one merge with conflict resolved
 

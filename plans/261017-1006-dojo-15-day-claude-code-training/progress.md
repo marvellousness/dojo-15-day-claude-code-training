@@ -1,6 +1,6 @@
 # Training Progress — source of truth
 
-Last updated: 2026-10-20 · Overall: **2 / 15 days done (13%)** · Tasks: **15 / 98**
+Last updated: 2026-10-20 · Overall: **2 / 15 days done (13%)** · Tasks: **17 / 98**
 
 Status values: `todo` · `in-progress` · `done` · `blocked`
 
@@ -9,7 +9,7 @@ Status values: `todo` · `in-progress` · `done` · `blocked`
 |---|---|---|---|---|---|---|---|---|
 | 1 | 2026-10-17 Sat | Mental model + Claude basics | done | 6/7 | AI Fluency ✓ (badge), Capabilities & limits ✓ (badge), Claude 101 → Day 2 | reports/day-01-261017-status.md | evidence/day-01/prompt-notes.md | 1.4 carried to Day 2; closed 10-19; local git only |
 | 2 | 2026-10-20 Tue | Ticket analysis, reproduce | done | 8/8 | Claude 101 ✓ (badge) | reports/day-02-261020-status.md | mr/day-02-app-scaffold.md | Android app merged; NOTE-101/102 reproduced; failing tests on day-02/failing-tests |
-| 3 | 2026-10-21 Wed | Fix, review, merge (CP1) | todo | 1/9 | — | — | — | |
+| 3 | 2026-10-21 Wed | Fix, review, merge (CP1) | in-progress | 3/9 | — | — | — | started 10-20 evening; fixes on fix/note-101-102-sync |
 | 4 | 2026-10-22 Thu | Install & daily loop | todo | 0/8 | Claude Code 101, CC in action | — | — | |
 | 5 | 2026-10-23 Fri | Memory & context | todo | 0/4 | — | — | — | |
 | 6 | 2026-10-24 Sat | Flagship & parallel (CP2) | todo | 0/12 | Intro to subagents | — | — | |
@@ -28,7 +28,7 @@ Task counts include checkpoint criteria items in phase files.
 ## Checkpoints
 | CP | Day | Status | Items | Evidence |
 |---|---|---|---|---|
-| CP1 | 3 | in-progress | 1/4 | tickets/NOTE-101.md, NOTE-102.md (repro) |
+| CP1 | 3 | in-progress | 2/4 | tickets/NOTE-101.md, NOTE-102.md (repro); fix/note-101-102-sync |
 | CP2 | 6 | todo | 0/5 | |
 | CP3 | 11 | todo | 0/4 | |
 | Final | 15 | todo | 0/2 | |

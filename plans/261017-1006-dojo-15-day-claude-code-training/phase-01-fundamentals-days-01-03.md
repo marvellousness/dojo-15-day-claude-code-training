@@ -40,8 +40,8 @@ Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolu
 ## Day 3 — Wed 2026-10-21 — Fix, review, merge · **Checkpoint 1**
 - [x] 3.1 Workshop: fix Day-2 bug on a branch, small commits, test included (branch `fix/note-101-102-sync`: e86ab31 NOTE-102, c1d0e56 NOTE-101; Claude-assisted)
 - [x] 3.2 Exercise: MR description (what / why / how tested / screenshots). Draft with Claude, edit by hand. Open MR (`mr/fix-note-101-102-sync.md`; Claude draft accepted unchanged; emulator-verified; risks filed as NOTE-107, NOTE-108)
-- [ ] 3.3 Peer swap (solo): Claude reads your MR and says whether it could review from description alone; you do the same on a Claude-authored MR
-- [ ] 3.4 Workshop: review checklist (correctness → tests → readability → security basics → scope). Review the Claude-authored MR with ≥3 actionable comments
+- [x] 3.3 Peer swap (solo): Claude reads your MR and says whether it could review from description alone; you do the same on a Claude-authored MR (`evidence/day-03/peer-swap.md`; part B Claude-drafted at the user's request)
+- [x] 3.4 Workshop: review checklist (correctness → tests → readability → security basics → scope). Review the Claude-authored MR with ≥3 actionable comments (`docs/review-checklist.md`; 6 comments on `claude/sync-message-resources`, Claude-drafted at the user's request, not blind)
 - [ ] 3.5 Exercise: resolve seeded conflict on your MR, merge, delete branch
 
 ### CP1 pass criteria

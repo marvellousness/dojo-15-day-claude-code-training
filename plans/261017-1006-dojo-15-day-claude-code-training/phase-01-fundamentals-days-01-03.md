@@ -32,7 +32,7 @@ Courses: finish Claude 101
 - [x] 2.3 Workshop: run app from clean clone, reproduce seeded bug, write exact repro steps into the ticket (steps, expected vs actual, environment)
 - [x] 2.4 Claude habit: paste stack trace/code, ask hypotheses, verify each by running
 - [x] 2.5 Exercise: express bug as failing test (branch `day-02/failing-tests`: `SyncContractTest`, red for NOTE-101 and NOTE-102)
-- [ ] 2.6 Git block: `pull --rebase`, read `git log` / `git diff`, merge conflict #1 (Claude seeds it)
+- [x] 2.6 Git block: `pull --rebase`, read `git log` / `git diff`, merge conflict #1 (Claude seeds it)
 - [ ] 2.7 Course: Claude 101, start and finish (includes 1.4, carried from Day 1)
 
 Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolution commit.

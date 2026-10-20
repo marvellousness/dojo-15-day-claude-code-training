@@ -20,12 +20,12 @@
     "topic": "Ticket analysis, reproduce",
     "phase": "Fundamentals",
     "checkpoint": "",
-    "status": "in-progress",
-    "tasks_done": 7,
+    "status": "done",
+    "tasks_done": 8,
     "tasks_total": 8,
-    "courses": "Claude 101 (start + finish)",
-    "report": "",
-    "notes": "Android app merged (review: 6 comments); seed/day-02-bugs ready"
+    "courses": "Claude 101 \u2713 (badge)",
+    "report": "reports/day-02-261020-status.md",
+    "notes": "Android app merged; NOTE-101/102 reproduced; failing tests on day-02/failing-tests"
   },
   {
     "day": 3,
@@ -35,7 +35,7 @@
     "phase": "Fundamentals",
     "checkpoint": "CP1",
     "status": "todo",
-    "tasks_done": 0,
+    "tasks_done": 1,
     "tasks_total": 9,
     "courses": "\u2014",
     "report": "",

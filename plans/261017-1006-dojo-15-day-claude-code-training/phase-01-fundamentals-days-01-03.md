@@ -45,7 +45,7 @@ Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolu
 - [ ] 3.5 Exercise: resolve seeded conflict on your MR, merge, delete branch
 
 ### CP1 pass criteria
-- [ ] Reproduce assigned bug, repro written in ticket
+- [x] Reproduce assigned bug, repro written in ticket (NOTE-101, NOTE-102; done Day 2)
 - [ ] Fix on a branch with a test
 - [ ] MR with self-contained description
 - [ ] One review with ≥3 actionable comments + one merge with conflict resolved

@@ -2,8 +2,8 @@
   {
     "checkpoint": "CP1",
     "day": 3,
-    "status": "todo",
-    "items_done": 0,
+    "status": "in-progress",
+    "items_done": 1,
     "items_total": 4
   },
   {

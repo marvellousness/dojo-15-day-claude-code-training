@@ -24,6 +24,8 @@ class NotesRepository(
         val pending = dao.unsynced()
         if (pending.isEmpty()) return 0
         val token = api.fetchToken()
+        // An expired session returns a blank token; don't send notes the backend will reject.
+        if (token.isBlank()) return 0
         val accepted = api.push(token, pending)
         dao.markSynced(pending.map { it.id })
         return accepted.size

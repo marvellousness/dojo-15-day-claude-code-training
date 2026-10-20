@@ -36,8 +36,8 @@ _Draft written by Claude (Day 3 task 3.2); to be edited by hand by the author be
 None attached: the screenshots are larger than the tooling here can read back, so the result was checked through `uiautomator dump` text instead (step 3 above). Add before/after screenshots by hand if the reviewer wants them.
 
 ## Risks & follow-ups
-- With more than 3 pending notes, one tap does not sync everything. The message says "Synced 3 note(s)" without saying more are left. Follow-up ticket: loop until empty, or show "3 synced, 2 left".
-- Notes toggled while a sync is in flight: `markSynced(accepted)` can mark a note synced right after `toggleDone` reset its flag, so that edit may not be sent. This existed before the change; worth a ticket.
+- With more than 3 pending notes, one tap does not sync everything, and the message doesn't say more are left. Filed as [NOTE-107](../tickets/NOTE-107.md).
+- A note toggled while a sync is in flight is marked synced, but the backend keeps the old state and the change is never sent. Confirmed with a temporary JVM test; existed before this change. Filed as [NOTE-108](../tickets/NOTE-108.md) (High).
 - "Synced N note(s)" is still a hard-coded string in the ViewModel (known follow-up from the Day 2 scaffold MR).
 
 ## Review checklist (reviewer: Claude, then the author)

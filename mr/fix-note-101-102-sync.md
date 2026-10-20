@@ -21,7 +21,8 @@ dao.markSynced(pending.map { it.id })      // NOTE-102: marks every pending note
 
 // after
 val accepted = withContext(ioDispatcher) { // NOTE-101: network off the caller's thread
-    api.push(api.fetchToken(), pending)
+    val token = api.fetchToken()
+    if (token.isBlank()) emptyList() else api.push(token, pending) // teammate's guard, kept (see Conflict resolution)
 }
 dao.markSynced(accepted)                   // NOTE-102: only what the backend accepted
 ```
@@ -45,6 +46,15 @@ dao.markSynced(accepted)                   // NOTE-102: only what the backend ac
   2. No ANR dialog; logcat (cleared before the tap) has no "ANR in" or "Input dispatching timed out".
   3. Message "Synced 3 note(s)". Second tap: "Synced 2 note(s)". Third tap: "Synced 0 note(s)", and no note shows the "Not synced" marker.
 - Not tested: a physical device; latencies other than 1.5 s; the screen closing mid-sync on the new code (the cancellation path was tested on Day 2, before this change); a real backend.
+
+## Conflict resolution (task 3.5, 2026-10-20)
+- While this MR was open, a teammate merged fe424e2 "skip sync when the session token is blank" into `feat/training-plan`. It changed the same lines in `NotesRepository.sync()`.
+- `git rebase feat/training-plan` (the `pull --rebase` step) stopped on 2a6e688 (NOTE-101) with a conflict:
+  - **theirs (upstream, `HEAD` during a rebase):** `fetchToken()` on the caller's thread, then `if (token.isBlank()) return 0`.
+  - **mine:** `withContext(ioDispatcher) { api.push(api.fetchToken(), pending) }`.
+- **Resolution: keep both.** The token fetch and the blank check move inside `withContext`, and a blank token yields `emptyList()`, so `markSynced` marks nothing and `sync` returns 0. The teammate's behavior is unchanged and the network call stays off the main thread.
+- New test d6aa085: `sync with a blank token sends nothing and keeps notes pending` (needed `RecordingSyncApi.token` to be settable).
+- After resolving: `./gradlew testDebugUnitTest` 11/11 pass (2 runs, `--rerun-tasks`), `lint` passes.
 
 ## Screenshots
 None attached: the screenshots are larger than the tooling here can read back, so the result was checked through `uiautomator dump` text instead (step 3 above). Add before/after screenshots by hand if the reviewer wants them.

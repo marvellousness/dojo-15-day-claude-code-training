@@ -30,7 +30,7 @@ Courses: finish Claude 101
 - [x] 2.1 Workshop: 5 tickets × three-sentence analysis (ask, ambiguity, first step). Use Claude to find gaps and draft clarifying questions
 - [x] 2.2 Exercise: write reporter questions; role-play reporter/dev with Claude
 - [x] 2.3 Workshop: run app from clean clone, reproduce seeded bug, write exact repro steps into the ticket (steps, expected vs actual, environment)
-- [ ] 2.4 Claude habit: paste stack trace/code, ask hypotheses, verify each by running
+- [x] 2.4 Claude habit: paste stack trace/code, ask hypotheses, verify each by running
 - [ ] 2.5 Exercise: express bug as failing test
 - [ ] 2.6 Git block: `pull --rebase`, read `git log` / `git diff`, merge conflict #1 (Claude seeds it)
 - [ ] 2.7 Course: Claude 101, start and finish (includes 1.4, carried from Day 1)

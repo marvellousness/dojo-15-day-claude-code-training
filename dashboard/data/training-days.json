@@ -34,12 +34,12 @@
     "topic": "Fix, review, merge (CP1)",
     "phase": "Fundamentals",
     "checkpoint": "CP1",
-    "status": "todo",
-    "tasks_done": 1,
+    "status": "done",
+    "tasks_done": 9,
     "tasks_total": 9,
     "courses": "\u2014",
-    "report": "",
-    "notes": ""
+    "report": "reports/day-03-261021-status.md",
+    "notes": "closed 10-20 (a day early); CP1 pass (review Claude-drafted); NOTE-107/108 filed"
   },
   {
     "day": 4,

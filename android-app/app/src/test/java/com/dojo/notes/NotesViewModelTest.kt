@@ -2,6 +2,7 @@ package com.dojo.notes
 
 import com.dojo.notes.data.NotesRepository
 import com.dojo.notes.ui.NotesViewModel
+import com.dojo.notes.ui.SyncResult
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,7 +40,7 @@ class NotesViewModelTest {
         advanceUntilIdle()
 
         val state = vm.uiState.first()
-        assertEquals("Synced 1 note(s)", state.message)
+        assertEquals(SyncResult.Synced(1), state.syncResult)
         assertFalse(state.isSyncing)
     }
 
@@ -53,7 +54,7 @@ class NotesViewModelTest {
         vm.sync()
         advanceUntilIdle()
 
-        assertEquals("Sync failed: offline", vm.uiState.first().message)
+        assertEquals(SyncResult.Failed("offline"), vm.uiState.first().syncResult)
     }
 
     @Test

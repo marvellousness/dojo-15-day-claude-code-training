@@ -5,4 +5,8 @@
     <string name="sync">Sync notes now</string>
     <string name="syncing">Syncing…</string>
     <string name="not_synced">Not synced</string>
+    <string name="sync_failed">Sync failed: %1$s</string>
+    <plurals name="synced_notes">
+        <item quantity="other">Synced %d notes</item>
+    </plurals>
 </resources>

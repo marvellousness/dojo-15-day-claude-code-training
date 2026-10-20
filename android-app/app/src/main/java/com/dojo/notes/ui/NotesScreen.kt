@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -57,7 +58,13 @@ fun NotesScreen(
             enabled = !state.isSyncing,
             modifier = Modifier.fillMaxWidth().testTag("syncButton"),
         ) { Text(stringResource(if (state.isSyncing) R.string.syncing else R.string.sync)) }
-        state.message?.let { Text(it, modifier = Modifier.testTag("message")) }
+        state.syncResult?.let { result ->
+            val text = when (result) {
+                is SyncResult.Synced -> pluralStringResource(R.plurals.synced_notes, result.count, result.count)
+                is SyncResult.Failed -> stringResource(R.string.sync_failed, result.reason.toString())
+            }
+            Text(text, modifier = Modifier.testTag("message"))
+        }
         LazyColumn(Modifier.fillMaxSize()) {
             items(state.notes, key = { it.id }) { note ->
                 Row(verticalAlignment = Alignment.CenterVertically) {

@@ -10,7 +10,7 @@ Gaps found (reading the description first, then checking it against the branch):
 2. **No "where to start" pointer or snippet.** The core change is 4 lines in `NotesRepository.sync()`. A short before/after snippet would let a reviewer check the fix without opening the diff.
 3. **Rewritten test is described but not shown.** The reasoning for replacing the Day 2 NOTE-101 test is clear; the 300 ms / 100 ms timing margins are only visible in code. Worth one line on why those numbers are safe (token 200 ms, upload 400 ms).
 
-None of these block review.
+None of these block review. **All 3 applied** to the MR on 2026-10-20 at the user's request (branch `fix/note-101-102-sync`): size line split into code vs. docs, a "Start here" before/after snippet, and the timing reasoning.
 
 ## B. The user reads Claude's MR: `mr/claude-sync-message-resources.md` (branch `claude/sync-message-resources`)
 _To be filled by the user: could you review it from the description alone? What's missing?_

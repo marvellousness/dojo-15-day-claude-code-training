@@ -10,7 +10,21 @@ _Drafted by Claude (Day 3 task 3.2); reviewed by the author and accepted unchang
 - **NOTE-102 (lost notes):** `sync` marks only the ids the backend accepted as synced (`dao.markSynced(accepted)`), not every pending note. Notes over the batch limit stay pending and go out on the next sync.
 - `NotesRepository` takes `ioDispatcher: CoroutineDispatcher = Dispatchers.IO` as a constructor parameter. Production wiring in `NotesApp` is unchanged; tests pass their own dispatcher.
 
-3 files, +71 / −7: `NotesRepository.kt`, `SyncContractTest.kt` (new), `NotesViewModelTest.kt`.
+Code: 3 files, +71 / −7: `NotesRepository.kt`, `SyncContractTest.kt` (new), `NotesViewModelTest.kt`. Docs: this MR file, and tickets NOTE-107 and NOTE-108 (plus their rows in `tickets/README.md`).
+
+**Start here:** the whole fix is in `NotesRepository.sync()`:
+```kotlin
+// before
+val token = api.fetchToken()
+val accepted = api.push(token, pending)
+dao.markSynced(pending.map { it.id })      // NOTE-102: marks every pending note
+
+// after
+val accepted = withContext(ioDispatcher) { // NOTE-101: network off the caller's thread
+    api.push(api.fetchToken(), pending)
+}
+dao.markSynced(accepted)                   // NOTE-102: only what the backend accepted
+```
 
 ## Why
 - **NOTE-101:** `FakeSyncApi.push` blocks like a real HTTP client: `(n+1) × latency`, capped at 3 notes, so 6 s with the default 1.5 s. `sync` was called from `viewModelScope` (Main) and resumed on Main after the token `delay`, then blocked Main inside `push`. Any touch in that window ended in an input-dispatch ANR. The ANR trace in NOTE-101 shows `Thread.sleep` under `NotesRepository$sync$1` on `"main"` (hypotheses H1, H2, H7 in `evidence/day-02/hypotheses.md`).
@@ -20,7 +34,7 @@ _Drafted by Claude (Day 3 task 3.2); reviewed by the author and accepted unchang
 - **Dispatcher in the repository, not the API or the ViewModel.** The repository is the one place that knows it calls the network. Moving the switch here keeps the ViewModel simple and protects every caller, not only the Sync button. Alternative considered: make `FakeSyncApi` use `delay` instead of `Thread.sleep`. Rejected because the fake stands in for a blocking HTTP client; changing it would hide the bug, not fix it.
 - **Injectable dispatcher.** The ViewModel tests run on `StandardTestDispatcher`; with a hard-coded `Dispatchers.IO` the upload would leave the test scheduler, and `advanceUntilIdle()` could return before the sync finished.
 - **One batch per tap, no loop.** `sync` still sends one batch of up to 3 and returns what was accepted. A user with 5 notes taps twice (3, then 2). Looping until empty is a product decision (progress UI, partial failure), so it's out of scope here; see follow-ups.
-- **NOTE-101 test rewritten.** The Day 2 version timed `sync()` with a wall clock inside `runTest`. That can never pass: even with the upload off Main, `sync()` still waits for it (~400 ms). The new test runs `sync` on a real single-thread "main" dispatcher, then 300 ms in (token done, upload running) checks that a task posted to that thread runs within 100 ms.
+- **NOTE-101 test rewritten.** The Day 2 version timed `sync()` with a wall clock inside `runTest`. That can never pass: even with the upload off Main, `sync()` still waits for it (~400 ms). The new test runs `sync` on a real single-thread "main" dispatcher, then 300 ms in (token done, upload running) checks that a task posted to that thread runs within 100 ms. Why these numbers are safe: with `latencyMs = 200` the token takes 200 ms and the upload of 1 note takes (1+1) × 200 = 400 ms, so the upload runs from about 200 ms to 600 ms. The check at 300 ms lands inside it with 100 ms of slack on the early side and 300 ms on the late side. Broken code blocks the thread until about 600 ms, so the check waits about 300 ms and fails; fixed code waits close to 0 ms. The 100 ms limit sits between the two.
 
 ## How tested
 - `./gradlew testDebugUnitTest`: 10/10 pass, 3 runs in a row with `--rerun-tasks` (repository 5, ViewModel 3, `SyncContractTest` 2).

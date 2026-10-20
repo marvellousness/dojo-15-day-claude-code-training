@@ -42,13 +42,13 @@ Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolu
 - [x] 3.2 Exercise: MR description (what / why / how tested / screenshots). Draft with Claude, edit by hand. Open MR (`mr/fix-note-101-102-sync.md`; Claude draft accepted unchanged; emulator-verified; risks filed as NOTE-107, NOTE-108)
 - [x] 3.3 Peer swap (solo): Claude reads your MR and says whether it could review from description alone; you do the same on a Claude-authored MR (`evidence/day-03/peer-swap.md`; part B Claude-drafted at the user's request)
 - [x] 3.4 Workshop: review checklist (correctness → tests → readability → security basics → scope). Review the Claude-authored MR with ≥3 actionable comments (`docs/review-checklist.md`; 6 comments on `claude/sync-message-resources`, Claude-drafted at the user's request, not blind)
-- [ ] 3.5 Exercise: resolve seeded conflict on your MR, merge, delete branch
+- [x] 3.5 Exercise: resolve seeded conflict on your MR, merge, delete branch (teammate fe424e2 vs NOTE-101 fix, kept both + test d6aa085; merged 19048f1; branch deleted; Claude-assisted)
 
 ### CP1 pass criteria
 - [x] Reproduce assigned bug, repro written in ticket (NOTE-101, NOTE-102; done Day 2)
 - [x] Fix on a branch with a test (`fix/note-101-102-sync`, `SyncContractTest` green)
-- [ ] MR with self-contained description
-- [ ] One review with ≥3 actionable comments + one merge with conflict resolved
+- [x] MR with self-contained description (`mr/fix-note-101-102-sync.md`; peer-swap verdict: reviewable from description)
+- [x] One review with ≥3 actionable comments + one merge with conflict resolved (6 comments on `claude/sync-message-resources`, Claude-drafted, not blind; merge 19048f1)
 
 Fail → redo failed item as homework Days 4–5.
 Skill seed: write the Day-3 review checklist down (`docs/review-checklist.md`); it becomes a skill on Day 7.

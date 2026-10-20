@@ -2,10 +2,17 @@ package com.dojo.notes
 
 import com.dojo.notes.data.FakeSyncApi
 import com.dojo.notes.data.NotesRepository
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.concurrent.Executors
+import kotlin.system.measureTimeMillis
 
 /**
  * Tests against the real [FakeSyncApi] contract (batch limit, latency), which
@@ -28,16 +35,23 @@ class SyncContractTest {
         assertTrue(dao.notes.value.all { it.synced })
     }
 
-    // NOTE-101: sync must suspend, not block the calling (main) thread.
+    // NOTE-101: while the upload runs, the calling (main) thread must stay free for input.
+    // Real threads, not runTest: virtual time would hide a blocking Thread.sleep.
     @Test
-    fun `sync does not block the calling thread`() = runTest {
-        val repository = NotesRepository(dao, FakeSyncApi(latencyMs = 200))
-        repository.add("test 1")
+    fun `sync keeps the calling thread free during the upload`() = runBlocking {
+        val main = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+        try {
+            val repository = NotesRepository(dao, FakeSyncApi(latencyMs = 200))
+            repository.add("test 1")
 
-        val start = System.nanoTime()
-        repository.sync()
-        val blockedMs = (System.nanoTime() - start) / 1_000_000
+            val sync = launch(main) { repository.sync() }
+            delay(300) // token fetch (200 ms) done, upload (400 ms) in progress
+            val waitedMs = measureTimeMillis { withContext(main) {} }
+            sync.join()
 
-        assertTrue("sync blocked the calling thread for ${blockedMs}ms", blockedMs < 100)
+            assertTrue("main thread was blocked for ${waitedMs}ms", waitedMs < 100)
+        } finally {
+            main.close()
+        }
     }
 }

@@ -1,11 +1,16 @@
 package com.dojo.notes.data
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 /** Single entry point for note data: local Room storage plus push-only sync. */
 class NotesRepository(
     private val dao: NoteDao,
     private val api: SyncApi,
+    // Network calls may block (like a real HTTP client), so they never run on the caller's thread.
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
     val notes: Flow<List<Note>> = dao.observeAll()
 
@@ -23,10 +28,11 @@ class NotesRepository(
     suspend fun sync(): Int {
         val pending = dao.unsynced()
         if (pending.isEmpty()) return 0
-        val token = api.fetchToken()
-        // An expired session returns a blank token; don't send notes the backend will reject.
-        if (token.isBlank()) return 0
-        val accepted = api.push(token, pending)
+        val accepted = withContext(ioDispatcher) {
+            val token = api.fetchToken()
+            // An expired session returns a blank token; don't send notes the backend will reject.
+            if (token.isBlank()) emptyList() else api.push(token, pending)
+        }
         // Only what the backend accepted is synced; the rest stays pending for the next sync.
         dao.markSynced(accepted)
         return accepted.size

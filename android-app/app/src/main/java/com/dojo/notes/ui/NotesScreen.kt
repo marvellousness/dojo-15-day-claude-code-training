@@ -60,8 +60,10 @@ fun NotesScreen(
         ) { Text(stringResource(if (state.isSyncing) R.string.syncing else R.string.sync)) }
         state.syncResult?.let { result ->
             val text = when (result) {
+                is SyncResult.Synced if result.count == 0 -> stringResource(R.string.nothing_to_sync)
                 is SyncResult.Synced -> pluralStringResource(R.plurals.synced_notes, result.count, result.count)
-                is SyncResult.Failed -> stringResource(R.string.sync_failed, result.reason.toString())
+                // Raw exception text can contain backend internals, so the user sees a generic message.
+                is SyncResult.Failed -> stringResource(R.string.sync_failed)
             }
             Text(text, modifier = Modifier.testTag("message"))
         }

@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 /** Outcome of the last sync; the screen turns it into translated text. */
 sealed interface SyncResult {
     data class Synced(val count: Int) : SyncResult
+    /** [reason] is for debugging only; it is never shown to the user. */
     data class Failed(val reason: String?) : SyncResult
 }
 
@@ -46,8 +47,7 @@ class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
         syncState.update { it.copy(isSyncing = true, syncResult = null) }
         viewModelScope.launch {
             val result = try {
-                val count = repository.sync()
-                if (count > 0) SyncResult.Synced(count) else null
+                SyncResult.Synced(repository.sync())
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {

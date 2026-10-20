@@ -45,6 +45,17 @@ class NotesViewModelTest {
     }
 
     @Test
+    fun `sync with nothing to send still reports a result`() = runTest(dispatcher) {
+        val vm = NotesViewModel(NotesRepository(dao, api, dispatcher))
+        backgroundScope.launch { vm.uiState.collect {} }
+
+        vm.sync()
+        advanceUntilIdle()
+
+        assertEquals(SyncResult.Synced(0), vm.uiState.first().syncResult)
+    }
+
+    @Test
     fun `sync failure is shown, not thrown`() = runTest(dispatcher) {
         api.failWith = IllegalStateException("offline")
         val vm = NotesViewModel(NotesRepository(dao, api, dispatcher))

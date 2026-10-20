@@ -58,3 +58,5 @@ _Claude, the author, 2026-10-20, at the user's request ("help me replies 6 revie
 4. **Fixed.** The user sees a fixed "Sync failed. Try again." whatever the exception says, including `null`. The reason stays in `SyncResult.Failed.reason` for debugging. Not logged yet: the project has no logging setup, and `android.util.Log` in the ViewModel would break the JVM tests; left as a follow-up.
 5. **Fixed.** ViewModel test for count 0, and a Compose test that checks the rendered text for 0, 1, 3 and two failures.
 6. **Answered.** The first version only compiled the UI tests and nobody looked at the screen. Now: `connectedDebugAndroidTest` 3/3 on the emulator, plus a manual check of 0, 1 and 3 notes (see "How tested").
+
+**Reviewer: approved** ("approve the replies", the user, 2026-10-20). Merged with `--no-ff` into `feat/training-plan`.

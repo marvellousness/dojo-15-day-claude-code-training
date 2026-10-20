@@ -19,7 +19,7 @@ class NotesRepository(
         dao.toggleDone(id)
     }
 
-    /** Pushes unsynced notes and returns how many were accepted. */
+    /** Pushes unsynced notes (the backend may accept only part of them) and returns how many were accepted. */
     suspend fun sync(): Int {
         val pending = dao.unsynced()
         if (pending.isEmpty()) return 0
@@ -27,7 +27,8 @@ class NotesRepository(
         // An expired session returns a blank token; don't send notes the backend will reject.
         if (token.isBlank()) return 0
         val accepted = api.push(token, pending)
-        dao.markSynced(pending.map { it.id })
+        // Only what the backend accepted is synced; the rest stays pending for the next sync.
+        dao.markSynced(accepted)
         return accepted.size
     }
 }

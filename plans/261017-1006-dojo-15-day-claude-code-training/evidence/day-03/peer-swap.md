@@ -13,4 +13,9 @@ Gaps found (reading the description first, then checking it against the branch):
 None of these block review. **All 3 applied** to the MR on 2026-10-20 at the user's request (branch `fix/note-101-102-sync`): size line split into code vs. docs, a "Start here" before/after snippet, and the timing reasoning.
 
 ## B. The user reads Claude's MR: `mr/claude-sync-message-resources.md` (branch `claude/sync-message-resources`)
-_To be filled by the user: could you review it from the description alone? What's missing?_
+_Drafted by Claude at the user's request ("help me complete the review", 2026-10-20). Claude wrote this MR and its answer key, so this is not a blind read._
+
+**Verdict: partly.** What and why are clear, and it links the follow-up it comes from. But I couldn't approve it from the description alone:
+1. **"No behavior change" is a claim with no evidence.** Moving text to resources and changing the state type both can change what users see; the description should show before/after messages for 0, 1, many and a failure.
+2. **"How tested" only covers compiling and unit tests.** The change is about on-screen text, but nothing says the text was looked at on a device or checked by a Compose test. `assembleDebugAndroidTest` compiles the UI tests; it doesn't run them.
+3. **No risks or follow-ups section**, e.g. translations still to add, or what happens when the error has no message.

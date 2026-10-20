@@ -49,6 +49,7 @@ Device: emulator
 - **Actual:** after ~1.5 s the UI stops responding for ~6 s. Touches made during that window aren't handled; after 5 s the system raises an ANR:
   `ANR in com.dojo.notes (com.dojo.notes/.MainActivity) — Reason: Input dispatching timed out (… Waited 5001ms for MotionEvent)`.
 - **Without step 3 (no touches):** no ANR; the app recovers and shows "Synced 3 note(s)".
+- **Repro rate (adb-driven):** 1 of 2 runs; the miss was a timing error (touches before the freeze started).
 - **Timing-sensitive:** touches in the first ~1.5 s after tapping Sync are handled normally (Run A: taps at 0.5 s and 0.8 s gave no ANR). The freeze starts only after that.
 - **1 note:** "Synced 1 note(s)" appears ~5.6 s after tapping Sync (includes ~0.3 s polling overhead); a shorter freeze, no ANR without heavy tapping.
 - **Main thread at the ANR** (`adb bugreport` → `FS/data/anr/anr_2026-10-19-23-02-47-401`):

@@ -3,7 +3,7 @@
 Branch: `fix/note-101-102-sync` → `feat/training-plan` (local MR; GitLab unreachable)
 Closes: [NOTE-101](../tickets/NOTE-101.md), [NOTE-102](../tickets/NOTE-102.md)
 
-_Draft written by Claude (Day 3 task 3.2); to be edited by hand by the author before review._
+_Drafted by Claude (Day 3 task 3.2); reviewed by the author and accepted unchanged ("MR draft is good", 2026-10-20)._
 
 ## What
 - **NOTE-101 (ANR):** `NotesRepository.sync` now runs the token fetch and the upload on an IO dispatcher (`withContext(ioDispatcher)`), so the main thread stays free while notes upload.

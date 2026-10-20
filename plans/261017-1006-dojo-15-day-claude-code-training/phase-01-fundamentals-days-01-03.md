@@ -16,7 +16,7 @@ Courses: AI Fluency: Framework and foundations · AI capabilities and limitation
 - [x] 1.1 Setup check: claude.ai sign-in works, Desktop app installed, this repo cloned
 - [x] 1.2 Course: AI Fluency (4D: Delegation, Description, Discernment, Diligence). Badge: https://academy.claude.com/badges/2914b0a2-b3bd-412e-830f-cef084cd4e78
 - [x] 1.3 Course: AI capabilities and limitations. Badge: https://academy.claude.com/badges/6695dbe2-cf03-42bd-95cc-face36fd48a0
-- [ ] 1.4 Course: start Claude 101 (first conversation, prompting, projects/artifacts). **Carried to Day 2 (2.7)** on 2026-10-19
+- [ ] 1.4 Course: start Claude 101 (first conversation, prompting, projects/artifacts). **Carried to Day 2 (2.7)** on 2026-10-19; done there 2026-10-20
 - [x] 1.5 Git block (local): branch, commit, `--no-ff` merge, delete branch. Push deferred until GitLab reachable
 - [x] 1.6 Exercise: in Claude chat, get a useful answer to 3 real work questions: one bug summary, one "explain this concept", one drafting task
 - [x] 1.7 Note which prompt changes improved each answer; note where output surprised you (good and bad)
@@ -33,7 +33,7 @@ Courses: finish Claude 101
 - [x] 2.4 Claude habit: paste stack trace/code, ask hypotheses, verify each by running
 - [x] 2.5 Exercise: express bug as failing test (branch `day-02/failing-tests`: `SyncContractTest`, red for NOTE-101 and NOTE-102)
 - [x] 2.6 Git block: `pull --rebase`, read `git log` / `git diff`, merge conflict #1 (Claude seeds it)
-- [ ] 2.7 Course: Claude 101, start and finish (includes 1.4, carried from Day 1)
+- [x] 2.7 Course: Claude 101, start and finish (includes 1.4, carried from Day 1). Badge: https://academy.claude.com/badges/60b6e887-8a60-479b-a21f-423bb97e1915 · summary: evidence/day-02/claude-101-course-summary.md
 
 Evidence: ticket analyses, repro in ticket, failing-test commit, conflict resolution commit.
 

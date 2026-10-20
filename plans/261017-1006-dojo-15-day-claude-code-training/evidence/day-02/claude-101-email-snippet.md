@@ -1,6 +1,6 @@
 # Claude 101 — short version for the daily report email
 
-**Claude 101** (Claude Academy, 13 lessons + quiz): <status: completed / in progress — badge link>
+**Claude 101** (Claude Academy, 13 lessons + quiz): completed — badge: https://academy.claude.com/badges/60b6e887-8a60-479b-a21f-423bb97e1915
 
 Key learnings:
 - **Prompt in three parts:** set the stage (role, goal, context), define the task, specify rules (format, tone, examples). Iterate from there; start a new chat when a thread goes off track.

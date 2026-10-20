@@ -1,6 +1,6 @@
 # Training Progress — source of truth
 
-Last updated: 2026-10-20 · Overall: **1 / 15 days done (7%)** · Tasks: **13 / 98**
+Last updated: 2026-10-20 · Overall: **1 / 15 days done (7%)** · Tasks: **14 / 98**
 
 Status values: `todo` · `in-progress` · `done` · `blocked`
 
@@ -8,7 +8,7 @@ Status values: `todo` · `in-progress` · `done` · `blocked`
 | Day | Date | Topic | Status | Tasks | Courses | Report | Evidence | Notes |
 |---|---|---|---|---|---|---|---|---|
 | 1 | 2026-10-17 Sat | Mental model + Claude basics | done | 6/7 | AI Fluency ✓ (badge), Capabilities & limits ✓ (badge), Claude 101 → Day 2 | reports/day-01-261017-status.md | evidence/day-01/prompt-notes.md | 1.4 carried to Day 2; closed 10-19; local git only |
-| 2 | 2026-10-20 Tue | Ticket analysis, reproduce | in-progress | 7/8 | Claude 101 (start + finish) | — | mr/day-02-app-scaffold.md | Android app merged (review: 6 comments); seed/day-02-bugs ready |
+| 2 | 2026-10-20 Tue | Ticket analysis, reproduce | in-progress | 8/8 | Claude 101 ✓ (badge) | — | mr/day-02-app-scaffold.md | Android app merged (review: 6 comments); seed/day-02-bugs ready |
 | 3 | 2026-10-21 Wed | Fix, review, merge (CP1) | todo | 0/9 | — | — | — | |
 | 4 | 2026-10-22 Thu | Install & daily loop | todo | 0/8 | Claude Code 101, CC in action | — | — | |
 | 5 | 2026-10-23 Fri | Memory & context | todo | 0/4 | — | — | — | |

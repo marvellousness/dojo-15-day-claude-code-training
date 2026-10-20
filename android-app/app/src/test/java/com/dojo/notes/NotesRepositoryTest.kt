@@ -58,4 +58,14 @@ class NotesRepositoryTest {
 
         assertEquals(false, dao.notes.value.single().done)
     }
+
+    @Test
+    fun `sync with a blank token sends nothing and keeps notes pending`() = runTest {
+        api.token = ""
+        repository.add("a")
+
+        assertEquals(0, repository.sync())
+        assertTrue(api.pushed.isEmpty())
+        assertEquals(1, dao.unsynced().size)
+    }
 }

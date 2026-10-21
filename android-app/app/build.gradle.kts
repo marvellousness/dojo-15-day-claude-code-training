@@ -35,6 +35,13 @@ android {
         compose = true
         buildConfig = true
     }
+
+    // Exported Room schemas are what MigrationTestHelper opens old database versions from.
+    sourceSets.getByName("androidTest").assets.srcDir("$projectDir/schemas")
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
@@ -60,4 +67,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.room.testing)
+
+    constraints {
+        // room-testing needs serialization 1.8.1, but androidTest is pinned to the app's 1.7.3 (from room-runtime),
+        // which crashes MigrationTestHelper with AbstractMethodError. Raise the app's version to match.
+        implementation(libs.kotlinx.serialization.core)
+    }
 }

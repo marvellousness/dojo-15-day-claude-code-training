@@ -20,10 +20,12 @@ class FakeNoteDao : NoteDao {
         return id
     }
     override suspend fun toggleDone(id: Long) {
-        notes.value = notes.value.map { if (it.id == id) it.copy(done = !it.done, synced = false) else it }
+        notes.value = notes.value.map {
+            if (it.id == id) it.copy(done = !it.done, synced = false, version = it.version + 1) else it
+        }
     }
-    override suspend fun markSynced(ids: List<Long>) {
-        notes.value = notes.value.map { if (it.id in ids) it.copy(synced = true) else it }
+    override suspend fun markSynced(id: Long, version: Int) {
+        notes.value = notes.value.map { if (it.id == id && it.version == version) it.copy(synced = true) else it }
     }
 }
 

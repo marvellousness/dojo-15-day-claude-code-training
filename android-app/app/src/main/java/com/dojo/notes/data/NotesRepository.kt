@@ -34,7 +34,9 @@ class NotesRepository(
             if (token.isBlank()) emptyList() else api.push(token, pending)
         }
         // Only what the backend accepted is synced; the rest stays pending for the next sync.
-        dao.markSynced(accepted)
+        // Each row is checked against the version that was pushed, so an edit made during the push is sent next time.
+        val acceptedIds = accepted.toSet()
+        dao.markSynced(pending.filter { it.id in acceptedIds })
         return accepted.size
     }
 }

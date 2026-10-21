@@ -68,7 +68,9 @@ Rendered with inline comments: `evidence/day-04/review-note-108-diff.png`. 1 med
 3. **Low:** the "`version` goes up on every local edit" rule needs to be visible where queries are written. **Open:** listed as a follow-up.
 
 ## Review checklist (reviewer: the author)
-- [ ] Builds from a clean clone: `cd android-app && ./gradlew lint testDebugUnitTest`
-- [ ] `connectedDebugAndroidTest` green on an emulator
-- [ ] Could be reviewed from this description alone
-- [ ] Approve, then merge `--no-ff` into `feat/training-plan`
+- [x] Builds from a clean clone: `cd android-app && ./gradlew lint testDebugUnitTest`
+- [x] `connectedDebugAndroidTest` green on an emulator
+- [x] Could be reviewed from this description alone
+- [x] Approve, then merge `--no-ff` into `feat/training-plan`
+
+**Approved** by the author ("reviewed the MR", 2026-10-21). Merged `--no-ff` as f864492; branch deleted.

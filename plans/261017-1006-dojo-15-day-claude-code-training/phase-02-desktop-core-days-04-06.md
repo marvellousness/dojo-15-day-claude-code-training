@@ -18,7 +18,7 @@ Courses: Claude Code 101 · Claude Code in action. Docs: quickstart, desktop get
 - [ ] 4.3 Plan mode: Shift+Tab until indicator shows "plan"
 - [ ] 4.4 Resume: `/resume` in session, `claude --resume` in terminal
 - [ ] 4.5 Exercise 1: "Explore this codebase and explain how feature X works", then verify 2 claims by reading code
-- [ ] 4.6 Exercise 2: bug ticket full loop: paste ticket → plan mode → approve → implement → diff pane hunk comment steer → run tests → MR
+- [x] 4.6 Exercise 2: bug ticket full loop: paste ticket → plan mode → approve → implement → diff pane hunk comment steer → run tests → MR
 - [ ] 4.7 Repeat Exercise 2 on a second ticket with no help
 - [ ] 4.8 Courses: Claude Code 101 + Claude Code in action
 
@@ -45,7 +45,7 @@ Course: Introduction to subagents
 
 ### CP2 pass criteria
 - [ ] Two parallel sessions, both merged
-- [ ] One plan-mode change steered via diff comments
+- [x] One plan-mode change steered via diff comments
 - [ ] One artifact
 - [ ] One Remote Control steer
 - [ ] One `/loop` run

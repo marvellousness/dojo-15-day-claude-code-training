@@ -27,7 +27,7 @@ If I tick or un-tick a note while a sync is in flight, the backend keeps the old
 - Given no edits during the sync, then behavior is unchanged (accepted notes are marked synced).
 
 ## Status (2026-10-21)
-- Fix in review: [mr/fix-note-108-edit-during-sync.md](../mr/fix-note-108-edit-during-sync.md), branch `fix/note-108-edit-during-sync`.
+- Merged f864492 (2026-10-21): [mr/fix-note-108-edit-during-sync.md](../mr/fix-note-108-edit-during-sync.md), branch `fix/note-108-edit-during-sync`.
 - Approach: `version` column with a version-checked `markSynced` (one transaction per sync), plus the Room migration v1 to v2.
 - Both acceptance criteria are covered by `NotesRepositoryTest` and `NoteDaoTest`, and the first was checked by hand on the emulator.
 - Known, accepted: the result message counts what the backend accepted, so a note edited during the sync is counted but stays "Not synced".

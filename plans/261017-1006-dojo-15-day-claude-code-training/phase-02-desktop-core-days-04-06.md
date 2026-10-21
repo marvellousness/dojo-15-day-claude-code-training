@@ -1,7 +1,7 @@
 ---
 phase: 2
 title: "Claude Code Desktop core (Days 4–6)"
-status: todo
+status: in-progress
 dates: 2026-10-22 → 2026-10-24
 checkpoint: CP2 (Day 6)
 ---

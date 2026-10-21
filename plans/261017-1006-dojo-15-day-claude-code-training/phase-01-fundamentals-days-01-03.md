@@ -1,7 +1,7 @@
 ---
 phase: 1
 title: "Shared fundamentals (Days 1–3)"
-status: in-progress
+status: done
 dates: 2026-10-17 → 2026-10-21
 checkpoint: CP1 (Day 3)
 ---

@@ -26,8 +26,8 @@ The site's "Mark day complete" button is browser-only, so [progress.md](./progre
 ## Phases
 | Phase | Days | Dates | Focus | Status |
 |---|---|---|---|---|
-| [Phase 01](./phase-01-fundamentals-days-01-03.md) | 1–3 | 10-17 → 10-21 | Shared fundamentals, training app, CP1 | in-progress |
-| [Phase 02](./phase-02-desktop-core-days-04-06.md) | 4–6 | 10-22 → 10-24 | Claude Code Desktop core, memory, flagship + parallel, CP2 | todo |
+| [Phase 01](./phase-01-fundamentals-days-01-03.md) | 1–3 | 10-17 → 10-21 | Shared fundamentals, training app, CP1 | done |
+| [Phase 02](./phase-02-desktop-core-days-04-06.md) | 4–6 | 10-22 → 10-24 | Claude Code Desktop core, memory, flagship + parallel, CP2 | in-progress |
 | [Phase 03](./phase-03-extend-skills-mcp-days-07-08.md) | 7–8 | 10-25 → 10-26 | Skills, plugins, MCP | todo |
 | [Phase 04](./phase-04-automate-review-role-days-09-11.md) | 9–11 | 10-27 → 10-29 | Hooks, automation, review, role day, CP3 | todo |
 | [Phase 05](./phase-05-capstone-days-12-15.md) | 12–15 | 10-30 → 11-02 | Capstone: plan, build, harden, demo, final CP | todo |
